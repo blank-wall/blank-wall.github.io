@@ -106,6 +106,41 @@
       </tags>
   </entry>
   <entry>
+    <title>快速上手搭建简易版脚手架</title>
+    <url>/2020/06/03/simple-npm/</url>
+    <content><![CDATA[<p><strong>前言：</strong> 使用过那么多脚手架，自己也实现一个简易版的</p>
+<h2 id="了解美化脚手架依赖包："><a href="#了解美化脚手架依赖包：" class="headerlink" title="了解美化脚手架依赖包："></a>了解美化脚手架依赖包：</h2><h3 id="1、commander"><a href="#1、commander" class="headerlink" title="1、commander"></a>1、commander</h3><p>这是用来编写指令和处理命令行的，具体用法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const program = require(&quot;commander&quot;);</span><br><span class="line">// 定义指令</span><br><span class="line">program</span><br><span class="line"> .version(&#x27;0.0.1&#x27;)</span><br><span class="line"> .command(&#x27;init&#x27;, &#x27;Generate a new project from a template&#x27;)</span><br><span class="line"> .action(() =&gt; &#123;</span><br><span class="line"> // 回调函数</span><br><span class="line"> &#125;)</span><br><span class="line">// 解析命令行参数</span><br><span class="line">program.parse(process.argv);</span><br></pre></td></tr></table></figure>
+<p>回忆一下，我们曾用过的 vue init 的命令就是这样声明的。</p>
+<h3 id="2、inquirer"><a href="#2、inquirer" class="headerlink" title="2、inquirer"></a>2、inquirer</h3><p>这是个强大的交互式命令行工具，具体用法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const inquirer = require(&#x27;inquirer&#x27;);</span><br><span class="line">inquirer</span><br><span class="line"> .prompt([</span><br><span class="line"> // 一些交互式的问题</span><br><span class="line"> ])</span><br><span class="line"> .then(answers =&gt; &#123;</span><br><span class="line"> // 回调函数，answers 就是用户输入的内容，是个对象</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="3、chalk"><a href="#3、chalk" class="headerlink" title="3、chalk"></a>3、chalk</h3><p> 这是用来修改控制台输出内容样式的，比如颜色啊，具体用法如下：<br> <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const chalk = require(&#x27;chalk&#x27;);</span><br><span class="line">console.log(chalk.green(&#x27;success&#x27;));</span><br><span class="line">console.log(chalk.red(&#x27;error&#x27;));</span><br></pre></td></tr></table></figure></p>
+<h3 id="4、ora"><a href="#4、ora" class="headerlink" title="4、ora"></a>4、ora</h3><p>这是一个好看的加载，就是你下载的时候会有个转圈圈的那种效果，用法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const ora = require(&#x27;ora&#x27;)</span><br><span class="line">let spinner = ora(&#x27;downloading template ...&#x27;)</span><br><span class="line">spinner.start()</span><br></pre></td></tr></table></figure>
+<h3 id="5、download-git-repo"><a href="#5、download-git-repo" class="headerlink" title="5、download-git-repo"></a>5、download-git-repo</h3><p>看名字很明显了，这是用来下载远程模板的，支持 GitHub、 GitLab 和 Bitbucket 等，用法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const download = require(&#x27;download-git-repo&#x27;)</span><br><span class="line">download(repository, destination, options, callback)</span><br></pre></td></tr></table></figure>
+<p>其中 repository 是远程仓库地址；destination 是存放下载的文件路径，也可以直接写文件名，默认就是当前目录；options 是一些选项，比如 { clone：boolean } 表示用 http download 还是 git clone 的形式下载。</p>
+<h2 id="开始："><a href="#开始：" class="headerlink" title="开始："></a>开始：</h2><h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><p>准备工作新建文件夹、在目录下执行npm init 命令 会生成一个生成 package.json 文件，在 package.json 里面写入以下依赖并执行 npm install 安装，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;dependencies&quot;: &#123;</span><br><span class="line"> &quot;chalk&quot;: &quot;^2.4.2&quot;,</span><br><span class="line"> &quot;commander&quot;: &quot;^2.19.0&quot;,</span><br><span class="line"> &quot;download-git-repo&quot;: &quot;^1.1.0&quot;,</span><br><span class="line"> &quot;inquirer&quot;: &quot;^6.2.2&quot;,</span><br><span class="line"> &quot;ora&quot;: &quot;^3.2.0&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>新建一个 bin 文件夹，并在 bin 目录下新建一个无后缀名的 xr 文件，并写上：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/usr/bin/env node</span><br><span class="line">console.log(&#x27;hello&#x27;);</span><br></pre></td></tr></table></figure>
+<p>这个文件就是我们整个脚手架的入口文件，我们用 node ./bin/xr 运行一下，就能在控制台打印出 hello<br>这里要注意开头的 #!/usr/bin/env node<br>这个语句必须加上，主要是为了让系统看到这一行的时候，会沿着该路径去查找 node 并执行，主要是为了兼容 Mac ，确保可执行。</p>
+<h3 id="bin-目录初始化"><a href="#bin-目录初始化" class="headerlink" title="bin 目录初始化"></a>bin 目录初始化</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/usr/bin/env node</span><br><span class="line">const program = require(&#x27;commander&#x27;)</span><br><span class="line"></span><br><span class="line">// 定义当前版本</span><br><span class="line">// 定义使用方法</span><br><span class="line">// 定义四个指令</span><br><span class="line">program</span><br><span class="line"> .version(require(&#x27;../package&#x27;).version)</span><br><span class="line"> .usage(&#x27;&lt;command&gt; [options]&#x27;)</span><br><span class="line"> .command(&#x27;add&#x27;, &#x27;add a new template&#x27;)</span><br><span class="line"> .command(&#x27;delete&#x27;, &#x27;delete a template&#x27;)</span><br><span class="line"> .command(&#x27;list&#x27;, &#x27;list all the templates&#x27;)</span><br><span class="line"> .command(&#x27;init&#x27;, &#x27;generate a new project from a template&#x27;)</span><br><span class="line"> </span><br><span class="line">// 解析命令行参数</span><br><span class="line">program.parse(process.argv)</span><br></pre></td></tr></table></figure>
+<h3 id="发布到-npm"><a href="#发布到-npm" class="headerlink" title="发布到 npm"></a>发布到 npm</h3><p>既然以上命令都执行成功了，那接下来我们就把它发布到 npm 上。</p>
+<ul>
+<li>  删除 test 文件夹，它就本地测试用的</li>
+<li>  在根目录下新建 README.md 文件，使用说明</li>
+<li>  在根目录下新建 .npmignore 文件，并写入 /node_modules ，意思就是发布的时候忽略 node_modules 文件夹，</li>
+<li>  去 npm 官网注册个账号</li>
+<li>  现在让我们回到项目根目录，执行 npm login 登入 npm 账号，再执行 npm publish 发布</li>
+<li>  发布完成后使用一下，是否能正常运行。这里我们记得先用 npm unlink 解绑一下命令，不然会相互影响。下面我们打开终端，输入 npm i xr-cli -g 全局安装一下脚手架，然后执行 xr</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Npm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>温故而知新（巩固js基础第一篇）</title>
     <url>/2021/09/22/base/</url>
     <content><![CDATA[<p>js为什么要单独开一个文件存放：<br>js在浏览器作为单独文件有一个好处就是浏览器会下载它，然后保存到浏览器的缓存中。<br>之后，其他页面想要相同的脚本就会从缓存中获取，而不是下载它。所以文件实际上只会下载一次。<br>这可以节省流量，并使得页面（加载）更快。</p>
@@ -206,39 +241,59 @@
       </tags>
   </entry>
   <entry>
-    <title>快速上手搭建简易版脚手架</title>
-    <url>/2020/06/03/simple-npm/</url>
-    <content><![CDATA[<p><strong>前言：</strong> 使用过那么多脚手架，自己也实现一个简易版的</p>
-<h2 id="了解美化脚手架依赖包："><a href="#了解美化脚手架依赖包：" class="headerlink" title="了解美化脚手架依赖包："></a>了解美化脚手架依赖包：</h2><h3 id="1、commander"><a href="#1、commander" class="headerlink" title="1、commander"></a>1、commander</h3><p>这是用来编写指令和处理命令行的，具体用法如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const program = require(&quot;commander&quot;);</span><br><span class="line">// 定义指令</span><br><span class="line">program</span><br><span class="line"> .version(&#x27;0.0.1&#x27;)</span><br><span class="line"> .command(&#x27;init&#x27;, &#x27;Generate a new project from a template&#x27;)</span><br><span class="line"> .action(() =&gt; &#123;</span><br><span class="line"> // 回调函数</span><br><span class="line"> &#125;)</span><br><span class="line">// 解析命令行参数</span><br><span class="line">program.parse(process.argv);</span><br></pre></td></tr></table></figure>
-<p>回忆一下，我们曾用过的 vue init 的命令就是这样声明的。</p>
-<h3 id="2、inquirer"><a href="#2、inquirer" class="headerlink" title="2、inquirer"></a>2、inquirer</h3><p>这是个强大的交互式命令行工具，具体用法如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const inquirer = require(&#x27;inquirer&#x27;);</span><br><span class="line">inquirer</span><br><span class="line"> .prompt([</span><br><span class="line"> // 一些交互式的问题</span><br><span class="line"> ])</span><br><span class="line"> .then(answers =&gt; &#123;</span><br><span class="line"> // 回调函数，answers 就是用户输入的内容，是个对象</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
-<h3 id="3、chalk"><a href="#3、chalk" class="headerlink" title="3、chalk"></a>3、chalk</h3><p> 这是用来修改控制台输出内容样式的，比如颜色啊，具体用法如下：<br> <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const chalk = require(&#x27;chalk&#x27;);</span><br><span class="line">console.log(chalk.green(&#x27;success&#x27;));</span><br><span class="line">console.log(chalk.red(&#x27;error&#x27;));</span><br></pre></td></tr></table></figure></p>
-<h3 id="4、ora"><a href="#4、ora" class="headerlink" title="4、ora"></a>4、ora</h3><p>这是一个好看的加载，就是你下载的时候会有个转圈圈的那种效果，用法如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const ora = require(&#x27;ora&#x27;)</span><br><span class="line">let spinner = ora(&#x27;downloading template ...&#x27;)</span><br><span class="line">spinner.start()</span><br></pre></td></tr></table></figure>
-<h3 id="5、download-git-repo"><a href="#5、download-git-repo" class="headerlink" title="5、download-git-repo"></a>5、download-git-repo</h3><p>看名字很明显了，这是用来下载远程模板的，支持 GitHub、 GitLab 和 Bitbucket 等，用法如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const download = require(&#x27;download-git-repo&#x27;)</span><br><span class="line">download(repository, destination, options, callback)</span><br></pre></td></tr></table></figure>
-<p>其中 repository 是远程仓库地址；destination 是存放下载的文件路径，也可以直接写文件名，默认就是当前目录；options 是一些选项，比如 { clone：boolean } 表示用 http download 还是 git clone 的形式下载。</p>
-<h2 id="开始："><a href="#开始：" class="headerlink" title="开始："></a>开始：</h2><h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><p>准备工作新建文件夹、在目录下执行npm init 命令 会生成一个生成 package.json 文件，在 package.json 里面写入以下依赖并执行 npm install 安装，如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;dependencies&quot;: &#123;</span><br><span class="line"> &quot;chalk&quot;: &quot;^2.4.2&quot;,</span><br><span class="line"> &quot;commander&quot;: &quot;^2.19.0&quot;,</span><br><span class="line"> &quot;download-git-repo&quot;: &quot;^1.1.0&quot;,</span><br><span class="line"> &quot;inquirer&quot;: &quot;^6.2.2&quot;,</span><br><span class="line"> &quot;ora&quot;: &quot;^3.2.0&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>新建一个 bin 文件夹，并在 bin 目录下新建一个无后缀名的 xr 文件，并写上：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/usr/bin/env node</span><br><span class="line">console.log(&#x27;hello&#x27;);</span><br></pre></td></tr></table></figure>
-<p>这个文件就是我们整个脚手架的入口文件，我们用 node ./bin/xr 运行一下，就能在控制台打印出 hello<br>这里要注意开头的 #!/usr/bin/env node<br>这个语句必须加上，主要是为了让系统看到这一行的时候，会沿着该路径去查找 node 并执行，主要是为了兼容 Mac ，确保可执行。</p>
-<h3 id="bin-目录初始化"><a href="#bin-目录初始化" class="headerlink" title="bin 目录初始化"></a>bin 目录初始化</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/usr/bin/env node</span><br><span class="line">const program = require(&#x27;commander&#x27;)</span><br><span class="line"></span><br><span class="line">// 定义当前版本</span><br><span class="line">// 定义使用方法</span><br><span class="line">// 定义四个指令</span><br><span class="line">program</span><br><span class="line"> .version(require(&#x27;../package&#x27;).version)</span><br><span class="line"> .usage(&#x27;&lt;command&gt; [options]&#x27;)</span><br><span class="line"> .command(&#x27;add&#x27;, &#x27;add a new template&#x27;)</span><br><span class="line"> .command(&#x27;delete&#x27;, &#x27;delete a template&#x27;)</span><br><span class="line"> .command(&#x27;list&#x27;, &#x27;list all the templates&#x27;)</span><br><span class="line"> .command(&#x27;init&#x27;, &#x27;generate a new project from a template&#x27;)</span><br><span class="line"> </span><br><span class="line">// 解析命令行参数</span><br><span class="line">program.parse(process.argv)</span><br></pre></td></tr></table></figure>
-<h3 id="发布到-npm"><a href="#发布到-npm" class="headerlink" title="发布到 npm"></a>发布到 npm</h3><p>既然以上命令都执行成功了，那接下来我们就把它发布到 npm 上。</p>
-<ul>
-<li>  删除 test 文件夹，它就本地测试用的</li>
-<li>  在根目录下新建 README.md 文件，使用说明</li>
-<li>  在根目录下新建 .npmignore 文件，并写入 /node_modules ，意思就是发布的时候忽略 node_modules 文件夹，</li>
-<li>  去 npm 官网注册个账号</li>
-<li>  现在让我们回到项目根目录，执行 npm login 登入 npm 账号，再执行 npm publish 发布</li>
-<li>  发布完成后使用一下，是否能正常运行。这里我们记得先用 npm unlink 解绑一下命令，不然会相互影响。下面我们打开终端，输入 npm i xr-cli -g 全局安装一下脚手架，然后执行 xr</li>
-</ul>
+    <title></title>
+    <url>/2021/12/16/this/</url>
+    <content><![CDATA[<h1 id="搞懂this指向"><a href="#搞懂this指向" class="headerlink" title="搞懂this指向"></a>搞懂this指向</h1><blockquote>
+<p>ps 为什么要搞懂this？因为JavaScript是面向对象编程，而this指向的就是对象</p>
+</blockquote>
+<h2 id="谁调用就指向谁"><a href="#谁调用就指向谁" class="headerlink" title="谁调用就指向谁"></a>谁调用就指向谁</h2><p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">function test() &#123;</span><br><span class="line">    var name = &quot;测试&quot;;</span><br><span class="line">    console.log(this.name); // &#x27;&#x27;</span><br><span class="line">    console.log(this); // window</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br></pre></td></tr></table></figure>
+
+<p>this最终指向的是调用它的对象，这里的函数a实际是被Window对象所点出来的。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">function test() &#123;</span><br><span class="line">    var name = &quot;测试&quot;;</span><br><span class="line">    console.log(this.name); // &#x27;&#x27;</span><br><span class="line">    console.log(this); // window</span><br><span class="line">&#125;</span><br><span class="line">window.test();</span><br></pre></td></tr></table></figure>
+
+<p>效果是一样的，因为定义的函数也是window的一个属性。</p>
+<p>在看另外个例子</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var test = &#123;</span><br><span class="line">    name: &#x27;测试&#x27;,</span><br><span class="line">    fn: function() &#123;</span><br><span class="line">        console.log(this.name); // 测试</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">​</span><br><span class="line">test.fn()</span><br></pre></td></tr></table></figure>
+
+<p>这里this是指向对象test,按说法谁调用它就指向谁，那自然就是对象test。当然要在函数创建后这个说法才成立。</p>
+<h2 id="this永远指向的是最后调用它"><a href="#this永远指向的是最后调用它" class="headerlink" title="this永远指向的是最后调用它"></a>this永远指向的是最后调用它</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var test = &#123;</span><br><span class="line">    age:10,</span><br><span class="line">    test2:&#123;</span><br><span class="line">        age:12,</span><br><span class="line">        fn:function()&#123;</span><br><span class="line">            console.log(this.age); //undefined</span><br><span class="line">            console.log(this); //window</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var call = test.test2.fn;</span><br><span class="line">call();</span><br></pre></td></tr></table></figure>
+
+<p>这里指向的是window，因为this永远指向的是最后调用它的，也就是看它执行的时候是谁调用的。这个例子虽然函数fu是被test2所引用，但是在将fn赋值给变量call的时候并没有执行所以最终指向的是window</p>
+<h2 id="构造函数版this"><a href="#构造函数版this" class="headerlink" title="构造函数版this"></a>构造函数版this</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">function fn()&#123;</span><br><span class="line">    this.user = &quot;测试&quot;;</span><br><span class="line">&#125;</span><br><span class="line">var test = new fn();</span><br><span class="line">console.log(test.user); // 测试</span><br></pre></td></tr></table></figure>
+
+<p>这里之所以对象test可以点出函数Fn里面的user是因为new关键字可以改变this的指向，用了new关键字就是创建一个对象实例，我们这里用变量test创建了一个fn的实例（相当于复制了一份Fn到对象test里面），此时仅仅只是创建，并没有执行，而调用这个函数fn的是对象test，那么this指向的自然是对象test。</p>
+<blockquote>
+<p>首先new关键字会创建一个空的对象，然后会自动调用一个函数apply方法，将this指向这个空对象，这样的话函数内部的this就会被这个空的对象替代。</p>
+</blockquote>
+<h2 id="当this碰到return时"><a href="#当this碰到return时" class="headerlink" title="当this碰到return时"></a>当this碰到return时</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">function fn()  </span><br><span class="line">&#123;  </span><br><span class="line">    this.user = &#x27;测试&#x27;;  </span><br><span class="line">    return &#123;&#125;;  </span><br><span class="line">&#125;</span><br><span class="line">var test = new fn;  </span><br><span class="line">console.log(test.user); //undefined</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">function fn()  </span><br><span class="line">&#123;  </span><br><span class="line">    this.user = &#x27;测试&#x27;;  </span><br><span class="line">    return 1;  </span><br><span class="line">&#125;</span><br><span class="line">var test = new fn;  </span><br><span class="line">console.log(test.user); //测试</span><br></pre></td></tr></table></figure>
+
+<p>如果函数返回值是一个对象，那么this指向的就是那个返回的对象，如果返回值不是一个对象那么this还是指向函数的实例。</p>
+<h2 id="自行改变this的指向"><a href="#自行改变this的指向" class="headerlink" title="自行改变this的指向"></a>自行改变this的指向</h2><p>开发环境的数据，测试环境没有开发环境的数据，只有改变环境才能更换数据。call,apply,bind 就是一般用来指定this的环境</p>
+<h3 id="call"><a href="#call" class="headerlink" title="call()"></a>call()</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var test = &#123;</span><br><span class="line">    age:10,</span><br><span class="line">    test2:&#123;</span><br><span class="line">        age:12,</span><br><span class="line">        fn:function()&#123;</span><br><span class="line">            console.log(this.age); //undefined</span><br><span class="line">            console.log(this); //window</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var fn2 = test.test2.fn;</span><br><span class="line">fn2();</span><br></pre></td></tr></table></figure>
+
+<p>这里fn2指向的是window，通过call方法，第一个参数可以将fn2 window环境指向为你需要的环境中</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var test = &#123;</span><br><span class="line">    age:10,</span><br><span class="line">    test2:&#123;</span><br><span class="line">        age:12,</span><br><span class="line">        fn:function()&#123;</span><br><span class="line">            console.log(this.age); // 12</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var fn2 = test.test2.fn;</span><br><span class="line">fn2.call(test);</span><br></pre></td></tr></table></figure>
+
+<p>也可以添加多个参数</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var test = &#123;</span><br><span class="line">    age:10,</span><br><span class="line">    test2:&#123;</span><br><span class="line">        age:12,</span><br><span class="line">        fn:function(e, ee)&#123;</span><br><span class="line">            console.log(this.age); // 12</span><br><span class="line">            console.log(e+ee); //3</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var fn2 = test.test2.fn;</span><br><span class="line">fn2.call(test, 1, 2);</span><br></pre></td></tr></table></figure>
+
+<h3 id="apply"><a href="#apply" class="headerlink" title="apply()"></a>apply()</h3><p>apply方法和call方法有些相似，它也可以改变this的指向，唯一不同的就是apply第二个参数只能是数组</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var test = &#123;</span><br><span class="line">    age:10,</span><br><span class="line">    test2:&#123;</span><br><span class="line">        age:12,</span><br><span class="line">        fn:function(e, ee)&#123;</span><br><span class="line">            console.log(this.age); // 12</span><br><span class="line">            console.log(e+ee); //6</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var fn2 = test.test2.fn;</span><br><span class="line">fn2.call(test,[1,2,3]);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>ps 注意如果call和apply的第一个参数写的是null，那么this指向的是window对象</p>
+</blockquote>
+<h3 id="bind"><a href="#bind" class="headerlink" title="bind()"></a>bind()</h3><p>bind方法和call、apply方法有些不同,bind方法是返回的是一个修改过后的函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var test = &#123;</span><br><span class="line">    age:10,</span><br><span class="line">    test2:&#123;</span><br><span class="line">        age:12,</span><br><span class="line">        fn:function()&#123;</span><br><span class="line">            console.log(this.age); </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var fn2 = test.test2.fn;</span><br><span class="line">fn2.bind(test);</span><br></pre></td></tr></table></figure>
+
+<p>这样会发现是没有执行的，因为bind返回的是一个修改后的函数，没有调用他</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var test = &#123;</span><br><span class="line">    age:10,</span><br><span class="line">    test2:&#123;</span><br><span class="line">        age:12,</span><br><span class="line">        fn:function()&#123;</span><br><span class="line">            console.log(this.age); // 12</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var fn2 = test.test2.fn;</span><br><span class="line">var fn3 = fn2.bind(test);</span><br><span class="line">fn3()</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以调用，当然bind也是支持多个参数的，用法跟call一样</p>
 ]]></content>
-      <tags>
-        <tag>Npm</tag>
-      </tags>
   </entry>
   <entry>
     <title>从零开始建博客</title>
