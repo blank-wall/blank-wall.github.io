@@ -51,7 +51,7 @@
 <meta property="og:description" content="搞懂this指向 ps 为什么要搞懂this？因为JavaScript是面向对象编程，而this指向的就是对象  谁调用就指向谁例子： 1234567function test() &amp;#123;    var name &#x3D; &quot;测试&quot;;    console.log(this.name); &#x2F;&#x2F; &amp;#x27;&amp;#x27;    console.log(this); &#x2F;&#x2F; wind">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-12-16T10:12:45.468Z">
-<meta property="article:modified_time" content="2021-12-16T10:20:23.409Z">
+<meta property="article:modified_time" content="2021-12-17T02:39:46.061Z">
 <meta property="article:author" content="白墙">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary_large_image">
@@ -194,7 +194,7 @@
 <h2 id="谁调用就指向谁"><a href="#谁调用就指向谁" class="headerlink" title="谁调用就指向谁"></a>谁调用就指向谁</h2><p>例子：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">function test() &#123;</span><br><span class="line">    var name = &quot;测试&quot;;</span><br><span class="line">    console.log(this.name); // &#x27;&#x27;</span><br><span class="line">    console.log(this); // window</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br></pre></td></tr></table></figure>
 
-<p>this最终指向的是调用它的对象，这里的函数a实际是被Window对象所点出来的。</p>
+<p>this最终指向的是调用它的对象，这里的函数test实际是被Window对象所点出来的。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">function test() &#123;</span><br><span class="line">    var name = &quot;测试&quot;;</span><br><span class="line">    console.log(this.name); // &#x27;&#x27;</span><br><span class="line">    console.log(this); // window</span><br><span class="line">&#125;</span><br><span class="line">window.test();</span><br></pre></td></tr></table></figure>
 
 <p>效果是一样的，因为定义的函数也是window的一个属性。</p>
@@ -241,7 +241,7 @@
 
     </div>
      
-    <div class="post-footer__meta"><p>更新于 2021-12-16</p></div> 
+    <div class="post-footer__meta"><p>更新于 2021-12-17</p></div> 
     <div class="post-entry__tags"><a href="/tags/JavaScript/" class="post-tags__link button"># JavaScript</a></div> 
 </article>
 

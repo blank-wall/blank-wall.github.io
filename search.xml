@@ -1,111 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>温故而知新（巩固js基础第二篇）</title>
-    <url>/2021/09/23/base-two/</url>
-    <content><![CDATA[<h2 id="判断：if与三元"><a href="#判断：if与三元" class="headerlink" title="判断：if与三元"></a>判断：if与三元</h2><p>在第一篇讲到了各种运算符，这里的<code>三元运算符</code>不同于算术运算上，所以没有写在同一篇。</p>
-<h3 id="if-else语句"><a href="#if-else语句" class="headerlink" title="if else语句"></a>if else语句</h3><p>常见的判断语句为<code>if else</code>，<code>if(...)</code> 语句计算括号里的条件表达式，如果计算结果是 <code>true</code>，就会执行对应的代码块。栗子：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let test = true</span><br><span class="line">if(test) &#123;</span><br><span class="line">    alert(&#x27;进来了！&#x27;);</span><br><span class="line">&#125;</span><br><span class="line">// 当代码块只有一条语句的时候，那么可以简写成：</span><br><span class="line">if(test) alert(&#x27;进来了！&#x27;);</span><br></pre></td></tr></table></figure>
-<p><code>if</code> 语句有时会包含一个可选的 “else” 块。如果判断条件不成立，就会执行它内部的代码。栗子：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">当有else就不支持简写</span><br><span class="line">let test = true</span><br><span class="line">if(test) &#123;</span><br><span class="line">    alert(&#x27;进来了！&#x27;);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    alert(&#x27;进了另外个门&#x27;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>还有时我们需要测试一个条件的几个变体。我们可以通过使用 <code>else if</code> 子句实现。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let test = true</span><br><span class="line">if(test) &#123;</span><br><span class="line">    alert(&#x27;进来了！&#x27;);</span><br><span class="line">&#125; else if &#123;</span><br><span class="line">    alert(&#x27;进了第二扇门&#x27;);</span><br><span class="line">&#125;else &#123;</span><br><span class="line">    alert(&#x27;进了第三扇门&#x27;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>以上的代码块都是从上到下，严格按照js的同步进行，先判断<code>if</code>是否为<code>true</code>，如果不是才会进行下一个语句判断，依次往下。当然可以有更多的 <code>else if</code> 块。结尾的 <code>else</code> 是可选的。</p>
-<h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><p><code>if (…)</code> 语句会计算圆括号内的表达式，并将计算结果转换为布尔型</p>
-<ul>
-<li>  数字 <code>0</code>、空字符串 <code>&quot;&quot;</code>、<code>null</code>、<code>undefined</code> 和 <code>NaN</code> 都会被转换成 <code>false</code>。因为它们被称为“假值（falsy）”值。</li>
-<li>  其他值被转换为 <code>true</code>，所以它们被称为“真值（truthy）”。<h3 id="三元运算符（条件运算符）‘-’"><a href="#三元运算符（条件运算符）‘-’" class="headerlink" title="三元运算符（条件运算符）‘?’"></a>三元运算符（条件运算符）‘?’</h3>我们需要根据一个条件去赋值一个变量就会想到使用刚刚才讲到的<code>if else</code>，但又感觉只是赋个值写代码块没必要。所谓的三元运算符让我们可以更简短地达到目的。之所以被称为“三元”是因为该运算符中有三个操作数。实际上它是 JavaScript 中唯一一个有这么多操作数的运算符。如何使用？栗子：</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let result = condition ? value1 : value2;</span><br><span class="line">// 计算条件结果，如果结果为真，则返回 `value1`，否则返回 `value2`。</span><br></pre></td></tr></table></figure>
-<p>当如果三元运算符用来判断返回<code>boolean</code>的话，可以不需要用到三元运算符。栗子：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let result = age &gt; 18 ? true : false; </span><br><span class="line">// 与</span><br><span class="line">let result = age &gt; 18</span><br><span class="line">// 是一样的</span><br></pre></td></tr></table></figure>
-<p>还可以嵌套多个三元运算符，但只可以返回一个取决于多个条件的值。栗子：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let message = (age &lt; 3) ? &#x27;我不到三岁&#x27; : (age &lt; 18) </span><br><span class="line">?&#x27;我不到18岁&#x27; : (age &lt; 100) </span><br><span class="line">?&#x27;我不到100岁&#x27; : &#x27;剩下就是我的岁数&#x27;;</span><br></pre></td></tr></table></figure>
-<p>可能很难一下子看出发生了什么。就很影响了可读性。</p>
-<ol>
-<li> 第一个问号检查 <code>age &lt; 3</code>。</li>
-<li> 如果为真 — 返回 <code>&#39;我不到三岁&#39;</code>。否则，会继续执行冒号 <code>&quot;:&quot;</code> 后的表达式，检查 <code>age &lt; 18</code>。</li>
-<li> 如果为真 — 返回 <code>&#39;我不到18岁&#39;</code>。否则，会继续执行下一个冒号 <code>&quot;:&quot;</code> 后的表达式，检查 <code>age &lt; 100</code>。</li>
-<li> 如果为真 — 返回 <code>&#39;我不到100岁&#39;</code>。否则，会继续执行最后一个冒号 <code>&quot;:&quot;</code> 后面的表达式，返回 <code>&#39;剩下就是我的岁数&#39;</code>。<br>有时候使用三元运算符是为了简便，但多了话就会很复杂，<strong>不建议这样使用三元运算符。</strong></li>
-</ol>
-<p><strong>tips：</strong> 建议每次使用 if 语句都用大括号 <code>&#123;&#125;</code> 来包装代码块，即使只有一条语句。这样可以提高代码可读性。</p>
-<h2 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h2><p>js中有三个常用的逻辑运算符：<code>||</code>（或），<code>&amp;&amp;</code>（与），<code>!</code>（非）。还有新增的非空运算符：<code>??</code></p>
-<p>虽然它们被称为“逻辑”运算符，但这些运算符却可以被应用于任意类型的值，而不仅仅是布尔值。它们的结果也同样可以是任意类型。</p>
-<h3 id="（或）"><a href="#（或）" class="headerlink" title="|| （或）"></a>|| （或）</h3><p>一个或运算 <code>||</code> 的链，将返回第一个真值，如果不存在真值，就返回该链的最后一个值。下面栗子将解释这段话。</p>
-<p>两个竖线符号表示<code>||</code>“或”运算符：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">result = a || b;</span><br></pre></td></tr></table></figure>
-<p>用作于判断使用的话，有四种逻辑情况</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">alert( true || true ); // true </span><br><span class="line">alert( false || true ); // true</span><br><span class="line">alert( true || false ); // true</span><br><span class="line">alert( false || false ); // false</span><br></pre></td></tr></table></figure>
-<p>用于表达式或者变量列表使用的话</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let firstName = &quot;&quot;; // 假值</span><br><span class="line">let lastName = &quot;&quot;; // 假值</span><br><span class="line">let nickName = &quot;SuperCoder&quot;; // 真值</span><br><span class="line">alert( firstName || lastName || nickName || &quot;Anonymous&quot;); // SuperCoder</span><br></pre></td></tr></table></figure>
-<p>前面变量的值都为假，结果就是 <code>&quot;Anonymous&quot;</code>。</p>
-<h3 id="amp-amp-（与）"><a href="#amp-amp-（与）" class="headerlink" title="&amp;&amp;（与）"></a>&amp;&amp;（与）</h3><p>与运算返回第一个假值，如果没有假值就返回最后一个值。上面的规则和或运算很像。区别就是与运算返回第一个假值，而或运算返回第一个真值。</p>
-<p>两个 &amp; 符号表示 <code>&amp;&amp;</code> 与运算符：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">result = a &amp;&amp; b;</span><br></pre></td></tr></table></figure>
-<p>跟或运算符不一样的是，当值都为真值时才会返回true，这里也举四个栗子跟或运算符做比较：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">alert( true &amp;&amp; true ); // true</span><br><span class="line">alert( false &amp;&amp; true ); // false</span><br><span class="line">alert( true &amp;&amp; false ); // false </span><br><span class="line">alert( false &amp;&amp; false ); // false</span><br></pre></td></tr></table></figure>
-<h3 id="（非）"><a href="#（非）" class="headerlink" title="!（非）"></a>!（非）</h3><p>感叹符号 <code>!</code> 表示布尔非运算符。</p>
-<p>在第一篇的不等于（<code>!==</code>）使用过</p>
-<p>逻辑非运算符接受一个参数，并按如下运作：</p>
-<ol>
-<li> 将操作数转化为布尔类型：<code>true/false</code>。</li>
-<li> 返回相反的值。<br>有时候我们会看到有两个<code>!!</code>是用来将某个值转化为布尔类型<h3 id="（非空运算符）"><a href="#（非空运算符）" class="headerlink" title="??（非空运算符）"></a>??（非空运算符）</h3>与 （<code>||</code>） 或运算符一样,唯一不一样的仅当值为 null 或 undefined 时才当为假值，其余都为真。</li>
-</ol>
-<p>在非空运算符基础上还能简写<code>??= </code>空赋值运算符：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let x = null</span><br><span class="line">let y = 5</span><br><span class="line">alert(x ??= y) // =&gt; 5</span><br></pre></td></tr></table></figure>
-<p>拆分为：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let x = null</span><br><span class="line">let y = 5</span><br><span class="line">alert(x = (x ?? y)) // =&gt; 5</span><br></pre></td></tr></table></figure>
-<p>但是出于安全原因，JavaScript 禁止将 <code>??</code> 运算符与 <code>&amp;&amp;</code> 和 <code>||</code> 运算符一起使用，除非使用括号明确指定了优先级。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let x = 1 &amp;&amp; 2 ?? 3; // Syntax error</span><br></pre></td></tr></table></figure>
-<p><strong>tips：</strong> </p>
-<ul>
-<li>优先级 <code>!</code> &gt; <code>&amp;&amp;</code> &gt; <code>||</code></li>
-<li>  <code>??</code> 运算符的优先级非常低，仅略高于 <code>?</code> 和 <code>=</code>，因此在表达式中使用它时请考虑添加括号。</li>
-<li>  如果没有明确添加括号，不能将其与 <code>||</code> 或 <code>&amp;&amp;</code> 一起使用。<h2 id="for和while"><a href="#for和while" class="headerlink" title="for和while"></a>for和while</h2></li>
-</ul>
-<p><strong>循环</strong> 是一种重复运行同一代码的方法。</p>
-<h3 id="while-循环"><a href="#while-循环" class="headerlink" title="while 循环"></a><code>while</code> 循环</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">while (condition) &#123;</span><br><span class="line">// 代码 </span><br><span class="line">// 所谓的“循环体”</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>当 <code>condition</code> 为真时，执行循环体的 <code>code</code>。</p>
-<p>例如，以下将循环输出当 <code>i &lt; 3</code> 时的 <code>i</code> 值：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let i = 0; </span><br><span class="line">while (i &lt; 3) &#123; // 依次显示 0、1 和 2 </span><br><span class="line">    alert( i ); </span><br><span class="line">    i++; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>循环体的单次执行叫作 <strong>一次迭代</strong>。上面示例中的循环进行了三次迭代。</p>
-<p>如果上述示例中没有 <code>i++</code>，那么循环（理论上）会永远重复执行下去，称为“死循环”。浏览器提供了阻止这种循环的方法，我们可以通过终止进程，来停掉服务器端的 JavaScript。</p>
-<p>当循环体只有一条语句，则可以省略大括号 <code>&#123;…&#125;</code>：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let i = 3; </span><br><span class="line">while (i) alert(i--);</span><br></pre></td></tr></table></figure>
-<h3 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a><code>for</code>循环</h3><p><code>for</code> 循环更加复杂，但它是最常使用的循环形式。</p>
-<p><code>for</code> 循环看起来就像这样：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">for (begin; condition; step) &#123; </span><br><span class="line">    // ……循环体…… </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>栗子：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">for (let i = 0; i &lt; 3; i++) &#123;</span><br><span class="line">    // 结果为 0、1、2 </span><br><span class="line">    alert(i); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>分析 <code>for</code> 循环：<br>begin     | <code>i = 0</code>    | 进入循环时执行一次。                  |<br>| ——— | ———- | ————————— |<br>| condition | <code>i &lt; 3</code>    | 在每次循环迭代之前检查，如果为 false，停止循环。 |<br>| body（循环体） | <code>alert(i)</code> | 条件为真时，重复运行。                 |<br>| step      | <code>i++</code>      | 在每次循环体迭代后执行。</p>
-<p><code>for</code>循环算法的工作原理如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">开始运行 </span><br><span class="line">→ (如果 condition 成立 → 运行 body 然后运行 step) </span><br><span class="line">→ (如果 condition 成立 → 运行 body 然后运行 step) </span><br><span class="line">→ (如果 condition 成立 → 运行 body 然后运行 step) </span><br><span class="line">→ ...</span><br></pre></td></tr></table></figure>
-<p>把工作原理使用到栗子上：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// for (let i = 0; i &lt; 3; i++) alert(i) </span><br><span class="line"></span><br><span class="line">// 开始 </span><br><span class="line">let i = 0 </span><br><span class="line">// 如果条件为真，运行下一步 </span><br><span class="line">if (i &lt; 3) &#123; alert(i); i++ &#125; </span><br><span class="line">// 如果条件为真，运行下一步 </span><br><span class="line">if (i &lt; 3) &#123; alert(i); i++ &#125; </span><br><span class="line">// 如果条件为真，运行下一步 </span><br><span class="line">if (i &lt; 3) &#123; alert(i); i++ &#125; </span><br><span class="line">// ……结束，因为现在 </span><br><span class="line">i == 3</span><br></pre></td></tr></table></figure>
-<h4 id="省略语句"><a href="#省略语句" class="headerlink" title="省略语句"></a>省略语句</h4><p><code>for</code>条件中需要三个条件，这些如果不需要的话是可以省略掉的</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let i = 0; </span><br><span class="line">// 我们已经声明了 i 并对它进行了赋值 </span><br><span class="line">for (; i &lt; 3; i++) &#123; // 不再需要 &quot;begin&quot; 语句段 </span><br><span class="line">    alert( i ); // 0, 1, 2 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>省略了<code>begin</code>参数，但 <strong>;</strong> 是一定要存在的。我们也可以移除 <code>step</code> 语句段：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let i = 0; </span><br><span class="line">for (; i &lt; 3;) &#123; </span><br><span class="line">    alert( i++ ); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这样写法跟<code>while (i &lt; 3)</code> 等价。 <code>for</code> 的两个 <code>;</code> 必须存在，否则会出现语法错误。</p>
-<p><code>for</code>还有语句：</p>
-<table>
-<thead>
-<tr>
-<th><code>break</code></th>
-<th>强制退出循环</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>continue</code></td>
-<td><code>break</code> 的“轻量版”。它不会停掉整个循环。而是停止当前这一次迭代，并强制启动新一轮循环（如果条件允许的话）。</td>
-</tr>
-</tbody></table>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>温故而知新（巩固js基础第一篇）</title>
     <url>/2021/09/22/base/</url>
     <content><![CDATA[<p>js为什么要单独开一个文件存放：<br>js在浏览器作为单独文件有一个好处就是浏览器会下载它，然后保存到浏览器的缓存中。<br>之后，其他页面想要相同的脚本就会从缓存中获取，而不是下载它。所以文件实际上只会下载一次。<br>这可以节省流量，并使得页面（加载）更快。</p>
@@ -206,41 +101,6 @@
       </tags>
   </entry>
   <entry>
-    <title>快速上手搭建简易版脚手架</title>
-    <url>/2020/06/03/simple-npm/</url>
-    <content><![CDATA[<p><strong>前言：</strong> 使用过那么多脚手架，自己也实现一个简易版的</p>
-<h2 id="了解美化脚手架依赖包："><a href="#了解美化脚手架依赖包：" class="headerlink" title="了解美化脚手架依赖包："></a>了解美化脚手架依赖包：</h2><h3 id="1、commander"><a href="#1、commander" class="headerlink" title="1、commander"></a>1、commander</h3><p>这是用来编写指令和处理命令行的，具体用法如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const program = require(&quot;commander&quot;);</span><br><span class="line">// 定义指令</span><br><span class="line">program</span><br><span class="line"> .version(&#x27;0.0.1&#x27;)</span><br><span class="line"> .command(&#x27;init&#x27;, &#x27;Generate a new project from a template&#x27;)</span><br><span class="line"> .action(() =&gt; &#123;</span><br><span class="line"> // 回调函数</span><br><span class="line"> &#125;)</span><br><span class="line">// 解析命令行参数</span><br><span class="line">program.parse(process.argv);</span><br></pre></td></tr></table></figure>
-<p>回忆一下，我们曾用过的 vue init 的命令就是这样声明的。</p>
-<h3 id="2、inquirer"><a href="#2、inquirer" class="headerlink" title="2、inquirer"></a>2、inquirer</h3><p>这是个强大的交互式命令行工具，具体用法如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const inquirer = require(&#x27;inquirer&#x27;);</span><br><span class="line">inquirer</span><br><span class="line"> .prompt([</span><br><span class="line"> // 一些交互式的问题</span><br><span class="line"> ])</span><br><span class="line"> .then(answers =&gt; &#123;</span><br><span class="line"> // 回调函数，answers 就是用户输入的内容，是个对象</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
-<h3 id="3、chalk"><a href="#3、chalk" class="headerlink" title="3、chalk"></a>3、chalk</h3><p> 这是用来修改控制台输出内容样式的，比如颜色啊，具体用法如下：<br> <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const chalk = require(&#x27;chalk&#x27;);</span><br><span class="line">console.log(chalk.green(&#x27;success&#x27;));</span><br><span class="line">console.log(chalk.red(&#x27;error&#x27;));</span><br></pre></td></tr></table></figure></p>
-<h3 id="4、ora"><a href="#4、ora" class="headerlink" title="4、ora"></a>4、ora</h3><p>这是一个好看的加载，就是你下载的时候会有个转圈圈的那种效果，用法如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const ora = require(&#x27;ora&#x27;)</span><br><span class="line">let spinner = ora(&#x27;downloading template ...&#x27;)</span><br><span class="line">spinner.start()</span><br></pre></td></tr></table></figure>
-<h3 id="5、download-git-repo"><a href="#5、download-git-repo" class="headerlink" title="5、download-git-repo"></a>5、download-git-repo</h3><p>看名字很明显了，这是用来下载远程模板的，支持 GitHub、 GitLab 和 Bitbucket 等，用法如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const download = require(&#x27;download-git-repo&#x27;)</span><br><span class="line">download(repository, destination, options, callback)</span><br></pre></td></tr></table></figure>
-<p>其中 repository 是远程仓库地址；destination 是存放下载的文件路径，也可以直接写文件名，默认就是当前目录；options 是一些选项，比如 { clone：boolean } 表示用 http download 还是 git clone 的形式下载。</p>
-<h2 id="开始："><a href="#开始：" class="headerlink" title="开始："></a>开始：</h2><h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><p>准备工作新建文件夹、在目录下执行npm init 命令 会生成一个生成 package.json 文件，在 package.json 里面写入以下依赖并执行 npm install 安装，如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;dependencies&quot;: &#123;</span><br><span class="line"> &quot;chalk&quot;: &quot;^2.4.2&quot;,</span><br><span class="line"> &quot;commander&quot;: &quot;^2.19.0&quot;,</span><br><span class="line"> &quot;download-git-repo&quot;: &quot;^1.1.0&quot;,</span><br><span class="line"> &quot;inquirer&quot;: &quot;^6.2.2&quot;,</span><br><span class="line"> &quot;ora&quot;: &quot;^3.2.0&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>新建一个 bin 文件夹，并在 bin 目录下新建一个无后缀名的 xr 文件，并写上：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/usr/bin/env node</span><br><span class="line">console.log(&#x27;hello&#x27;);</span><br></pre></td></tr></table></figure>
-<p>这个文件就是我们整个脚手架的入口文件，我们用 node ./bin/xr 运行一下，就能在控制台打印出 hello<br>这里要注意开头的 #!/usr/bin/env node<br>这个语句必须加上，主要是为了让系统看到这一行的时候，会沿着该路径去查找 node 并执行，主要是为了兼容 Mac ，确保可执行。</p>
-<h3 id="bin-目录初始化"><a href="#bin-目录初始化" class="headerlink" title="bin 目录初始化"></a>bin 目录初始化</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/usr/bin/env node</span><br><span class="line">const program = require(&#x27;commander&#x27;)</span><br><span class="line"></span><br><span class="line">// 定义当前版本</span><br><span class="line">// 定义使用方法</span><br><span class="line">// 定义四个指令</span><br><span class="line">program</span><br><span class="line"> .version(require(&#x27;../package&#x27;).version)</span><br><span class="line"> .usage(&#x27;&lt;command&gt; [options]&#x27;)</span><br><span class="line"> .command(&#x27;add&#x27;, &#x27;add a new template&#x27;)</span><br><span class="line"> .command(&#x27;delete&#x27;, &#x27;delete a template&#x27;)</span><br><span class="line"> .command(&#x27;list&#x27;, &#x27;list all the templates&#x27;)</span><br><span class="line"> .command(&#x27;init&#x27;, &#x27;generate a new project from a template&#x27;)</span><br><span class="line"> </span><br><span class="line">// 解析命令行参数</span><br><span class="line">program.parse(process.argv)</span><br></pre></td></tr></table></figure>
-<h3 id="发布到-npm"><a href="#发布到-npm" class="headerlink" title="发布到 npm"></a>发布到 npm</h3><p>既然以上命令都执行成功了，那接下来我们就把它发布到 npm 上。</p>
-<ul>
-<li>  删除 test 文件夹，它就本地测试用的</li>
-<li>  在根目录下新建 README.md 文件，使用说明</li>
-<li>  在根目录下新建 .npmignore 文件，并写入 /node_modules ，意思就是发布的时候忽略 node_modules 文件夹，</li>
-<li>  去 npm 官网注册个账号</li>
-<li>  现在让我们回到项目根目录，执行 npm login 登入 npm 账号，再执行 npm publish 发布</li>
-<li>  发布完成后使用一下，是否能正常运行。这里我们记得先用 npm unlink 解绑一下命令，不然会相互影响。下面我们打开终端，输入 npm i xr-cli -g 全局安装一下脚手架，然后执行 xr</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Npm</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>彻底搞懂this指向</title>
     <url>/2021/12/16/this/</url>
     <content><![CDATA[<h1 id="搞懂this指向"><a href="#搞懂this指向" class="headerlink" title="搞懂this指向"></a>搞懂this指向</h1><blockquote>
@@ -249,7 +109,7 @@
 <h2 id="谁调用就指向谁"><a href="#谁调用就指向谁" class="headerlink" title="谁调用就指向谁"></a>谁调用就指向谁</h2><p>例子：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">function test() &#123;</span><br><span class="line">    var name = &quot;测试&quot;;</span><br><span class="line">    console.log(this.name); // &#x27;&#x27;</span><br><span class="line">    console.log(this); // window</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br></pre></td></tr></table></figure>
 
-<p>this最终指向的是调用它的对象，这里的函数a实际是被Window对象所点出来的。</p>
+<p>this最终指向的是调用它的对象，这里的函数test实际是被Window对象所点出来的。</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">function test() &#123;</span><br><span class="line">    var name = &quot;测试&quot;;</span><br><span class="line">    console.log(this.name); // &#x27;&#x27;</span><br><span class="line">    console.log(this); // window</span><br><span class="line">&#125;</span><br><span class="line">window.test();</span><br></pre></td></tr></table></figure>
 
 <p>效果是一样的，因为定义的函数也是window的一个属性。</p>
@@ -293,6 +153,146 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var test = &#123;</span><br><span class="line">    age:10,</span><br><span class="line">    test2:&#123;</span><br><span class="line">        age:12,</span><br><span class="line">        fn:function()&#123;</span><br><span class="line">            console.log(this.age); // 12</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var fn2 = test.test2.fn;</span><br><span class="line">var fn3 = fn2.bind(test);</span><br><span class="line">fn3()</span><br></pre></td></tr></table></figure>
 
 <p>这样就可以调用，当然bind也是支持多个参数的，用法跟call一样</p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>快速上手搭建简易版脚手架</title>
+    <url>/2020/06/03/simple-npm/</url>
+    <content><![CDATA[<p><strong>前言：</strong> 使用过那么多脚手架，自己也实现一个简易版的</p>
+<h2 id="了解美化脚手架依赖包："><a href="#了解美化脚手架依赖包：" class="headerlink" title="了解美化脚手架依赖包："></a>了解美化脚手架依赖包：</h2><h3 id="1、commander"><a href="#1、commander" class="headerlink" title="1、commander"></a>1、commander</h3><p>这是用来编写指令和处理命令行的，具体用法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const program = require(&quot;commander&quot;);</span><br><span class="line">// 定义指令</span><br><span class="line">program</span><br><span class="line"> .version(&#x27;0.0.1&#x27;)</span><br><span class="line"> .command(&#x27;init&#x27;, &#x27;Generate a new project from a template&#x27;)</span><br><span class="line"> .action(() =&gt; &#123;</span><br><span class="line"> // 回调函数</span><br><span class="line"> &#125;)</span><br><span class="line">// 解析命令行参数</span><br><span class="line">program.parse(process.argv);</span><br></pre></td></tr></table></figure>
+<p>回忆一下，我们曾用过的 vue init 的命令就是这样声明的。</p>
+<h3 id="2、inquirer"><a href="#2、inquirer" class="headerlink" title="2、inquirer"></a>2、inquirer</h3><p>这是个强大的交互式命令行工具，具体用法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const inquirer = require(&#x27;inquirer&#x27;);</span><br><span class="line">inquirer</span><br><span class="line"> .prompt([</span><br><span class="line"> // 一些交互式的问题</span><br><span class="line"> ])</span><br><span class="line"> .then(answers =&gt; &#123;</span><br><span class="line"> // 回调函数，answers 就是用户输入的内容，是个对象</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="3、chalk"><a href="#3、chalk" class="headerlink" title="3、chalk"></a>3、chalk</h3><p> 这是用来修改控制台输出内容样式的，比如颜色啊，具体用法如下：<br> <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const chalk = require(&#x27;chalk&#x27;);</span><br><span class="line">console.log(chalk.green(&#x27;success&#x27;));</span><br><span class="line">console.log(chalk.red(&#x27;error&#x27;));</span><br></pre></td></tr></table></figure></p>
+<h3 id="4、ora"><a href="#4、ora" class="headerlink" title="4、ora"></a>4、ora</h3><p>这是一个好看的加载，就是你下载的时候会有个转圈圈的那种效果，用法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const ora = require(&#x27;ora&#x27;)</span><br><span class="line">let spinner = ora(&#x27;downloading template ...&#x27;)</span><br><span class="line">spinner.start()</span><br></pre></td></tr></table></figure>
+<h3 id="5、download-git-repo"><a href="#5、download-git-repo" class="headerlink" title="5、download-git-repo"></a>5、download-git-repo</h3><p>看名字很明显了，这是用来下载远程模板的，支持 GitHub、 GitLab 和 Bitbucket 等，用法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const download = require(&#x27;download-git-repo&#x27;)</span><br><span class="line">download(repository, destination, options, callback)</span><br></pre></td></tr></table></figure>
+<p>其中 repository 是远程仓库地址；destination 是存放下载的文件路径，也可以直接写文件名，默认就是当前目录；options 是一些选项，比如 { clone：boolean } 表示用 http download 还是 git clone 的形式下载。</p>
+<h2 id="开始："><a href="#开始：" class="headerlink" title="开始："></a>开始：</h2><h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><p>准备工作新建文件夹、在目录下执行npm init 命令 会生成一个生成 package.json 文件，在 package.json 里面写入以下依赖并执行 npm install 安装，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;dependencies&quot;: &#123;</span><br><span class="line"> &quot;chalk&quot;: &quot;^2.4.2&quot;,</span><br><span class="line"> &quot;commander&quot;: &quot;^2.19.0&quot;,</span><br><span class="line"> &quot;download-git-repo&quot;: &quot;^1.1.0&quot;,</span><br><span class="line"> &quot;inquirer&quot;: &quot;^6.2.2&quot;,</span><br><span class="line"> &quot;ora&quot;: &quot;^3.2.0&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>新建一个 bin 文件夹，并在 bin 目录下新建一个无后缀名的 xr 文件，并写上：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/usr/bin/env node</span><br><span class="line">console.log(&#x27;hello&#x27;);</span><br></pre></td></tr></table></figure>
+<p>这个文件就是我们整个脚手架的入口文件，我们用 node ./bin/xr 运行一下，就能在控制台打印出 hello<br>这里要注意开头的 #!/usr/bin/env node<br>这个语句必须加上，主要是为了让系统看到这一行的时候，会沿着该路径去查找 node 并执行，主要是为了兼容 Mac ，确保可执行。</p>
+<h3 id="bin-目录初始化"><a href="#bin-目录初始化" class="headerlink" title="bin 目录初始化"></a>bin 目录初始化</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/usr/bin/env node</span><br><span class="line">const program = require(&#x27;commander&#x27;)</span><br><span class="line"></span><br><span class="line">// 定义当前版本</span><br><span class="line">// 定义使用方法</span><br><span class="line">// 定义四个指令</span><br><span class="line">program</span><br><span class="line"> .version(require(&#x27;../package&#x27;).version)</span><br><span class="line"> .usage(&#x27;&lt;command&gt; [options]&#x27;)</span><br><span class="line"> .command(&#x27;add&#x27;, &#x27;add a new template&#x27;)</span><br><span class="line"> .command(&#x27;delete&#x27;, &#x27;delete a template&#x27;)</span><br><span class="line"> .command(&#x27;list&#x27;, &#x27;list all the templates&#x27;)</span><br><span class="line"> .command(&#x27;init&#x27;, &#x27;generate a new project from a template&#x27;)</span><br><span class="line"> </span><br><span class="line">// 解析命令行参数</span><br><span class="line">program.parse(process.argv)</span><br></pre></td></tr></table></figure>
+<h3 id="发布到-npm"><a href="#发布到-npm" class="headerlink" title="发布到 npm"></a>发布到 npm</h3><p>既然以上命令都执行成功了，那接下来我们就把它发布到 npm 上。</p>
+<ul>
+<li>  删除 test 文件夹，它就本地测试用的</li>
+<li>  在根目录下新建 README.md 文件，使用说明</li>
+<li>  在根目录下新建 .npmignore 文件，并写入 /node_modules ，意思就是发布的时候忽略 node_modules 文件夹，</li>
+<li>  去 npm 官网注册个账号</li>
+<li>  现在让我们回到项目根目录，执行 npm login 登入 npm 账号，再执行 npm publish 发布</li>
+<li>  发布完成后使用一下，是否能正常运行。这里我们记得先用 npm unlink 解绑一下命令，不然会相互影响。下面我们打开终端，输入 npm i xr-cli -g 全局安装一下脚手架，然后执行 xr</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Npm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>温故而知新（巩固js基础第二篇）</title>
+    <url>/2021/09/23/base-two/</url>
+    <content><![CDATA[<h2 id="判断：if与三元"><a href="#判断：if与三元" class="headerlink" title="判断：if与三元"></a>判断：if与三元</h2><p>在第一篇讲到了各种运算符，这里的<code>三元运算符</code>不同于算术运算上，所以没有写在同一篇。</p>
+<h3 id="if-else语句"><a href="#if-else语句" class="headerlink" title="if else语句"></a>if else语句</h3><p>常见的判断语句为<code>if else</code>，<code>if(...)</code> 语句计算括号里的条件表达式，如果计算结果是 <code>true</code>，就会执行对应的代码块。栗子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let test = true</span><br><span class="line">if(test) &#123;</span><br><span class="line">    alert(&#x27;进来了！&#x27;);</span><br><span class="line">&#125;</span><br><span class="line">// 当代码块只有一条语句的时候，那么可以简写成：</span><br><span class="line">if(test) alert(&#x27;进来了！&#x27;);</span><br></pre></td></tr></table></figure>
+<p><code>if</code> 语句有时会包含一个可选的 “else” 块。如果判断条件不成立，就会执行它内部的代码。栗子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">当有else就不支持简写</span><br><span class="line">let test = true</span><br><span class="line">if(test) &#123;</span><br><span class="line">    alert(&#x27;进来了！&#x27;);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    alert(&#x27;进了另外个门&#x27;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还有时我们需要测试一个条件的几个变体。我们可以通过使用 <code>else if</code> 子句实现。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let test = true</span><br><span class="line">if(test) &#123;</span><br><span class="line">    alert(&#x27;进来了！&#x27;);</span><br><span class="line">&#125; else if &#123;</span><br><span class="line">    alert(&#x27;进了第二扇门&#x27;);</span><br><span class="line">&#125;else &#123;</span><br><span class="line">    alert(&#x27;进了第三扇门&#x27;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上的代码块都是从上到下，严格按照js的同步进行，先判断<code>if</code>是否为<code>true</code>，如果不是才会进行下一个语句判断，依次往下。当然可以有更多的 <code>else if</code> 块。结尾的 <code>else</code> 是可选的。</p>
+<h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><p><code>if (…)</code> 语句会计算圆括号内的表达式，并将计算结果转换为布尔型</p>
+<ul>
+<li>  数字 <code>0</code>、空字符串 <code>&quot;&quot;</code>、<code>null</code>、<code>undefined</code> 和 <code>NaN</code> 都会被转换成 <code>false</code>。因为它们被称为“假值（falsy）”值。</li>
+<li>  其他值被转换为 <code>true</code>，所以它们被称为“真值（truthy）”。<h3 id="三元运算符（条件运算符）‘-’"><a href="#三元运算符（条件运算符）‘-’" class="headerlink" title="三元运算符（条件运算符）‘?’"></a>三元运算符（条件运算符）‘?’</h3>我们需要根据一个条件去赋值一个变量就会想到使用刚刚才讲到的<code>if else</code>，但又感觉只是赋个值写代码块没必要。所谓的三元运算符让我们可以更简短地达到目的。之所以被称为“三元”是因为该运算符中有三个操作数。实际上它是 JavaScript 中唯一一个有这么多操作数的运算符。如何使用？栗子：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let result = condition ? value1 : value2;</span><br><span class="line">// 计算条件结果，如果结果为真，则返回 `value1`，否则返回 `value2`。</span><br></pre></td></tr></table></figure>
+<p>当如果三元运算符用来判断返回<code>boolean</code>的话，可以不需要用到三元运算符。栗子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let result = age &gt; 18 ? true : false; </span><br><span class="line">// 与</span><br><span class="line">let result = age &gt; 18</span><br><span class="line">// 是一样的</span><br></pre></td></tr></table></figure>
+<p>还可以嵌套多个三元运算符，但只可以返回一个取决于多个条件的值。栗子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let message = (age &lt; 3) ? &#x27;我不到三岁&#x27; : (age &lt; 18) </span><br><span class="line">?&#x27;我不到18岁&#x27; : (age &lt; 100) </span><br><span class="line">?&#x27;我不到100岁&#x27; : &#x27;剩下就是我的岁数&#x27;;</span><br></pre></td></tr></table></figure>
+<p>可能很难一下子看出发生了什么。就很影响了可读性。</p>
+<ol>
+<li> 第一个问号检查 <code>age &lt; 3</code>。</li>
+<li> 如果为真 — 返回 <code>&#39;我不到三岁&#39;</code>。否则，会继续执行冒号 <code>&quot;:&quot;</code> 后的表达式，检查 <code>age &lt; 18</code>。</li>
+<li> 如果为真 — 返回 <code>&#39;我不到18岁&#39;</code>。否则，会继续执行下一个冒号 <code>&quot;:&quot;</code> 后的表达式，检查 <code>age &lt; 100</code>。</li>
+<li> 如果为真 — 返回 <code>&#39;我不到100岁&#39;</code>。否则，会继续执行最后一个冒号 <code>&quot;:&quot;</code> 后面的表达式，返回 <code>&#39;剩下就是我的岁数&#39;</code>。<br>有时候使用三元运算符是为了简便，但多了话就会很复杂，<strong>不建议这样使用三元运算符。</strong></li>
+</ol>
+<p><strong>tips：</strong> 建议每次使用 if 语句都用大括号 <code>&#123;&#125;</code> 来包装代码块，即使只有一条语句。这样可以提高代码可读性。</p>
+<h2 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h2><p>js中有三个常用的逻辑运算符：<code>||</code>（或），<code>&amp;&amp;</code>（与），<code>!</code>（非）。还有新增的非空运算符：<code>??</code></p>
+<p>虽然它们被称为“逻辑”运算符，但这些运算符却可以被应用于任意类型的值，而不仅仅是布尔值。它们的结果也同样可以是任意类型。</p>
+<h3 id="（或）"><a href="#（或）" class="headerlink" title="|| （或）"></a>|| （或）</h3><p>一个或运算 <code>||</code> 的链，将返回第一个真值，如果不存在真值，就返回该链的最后一个值。下面栗子将解释这段话。</p>
+<p>两个竖线符号表示<code>||</code>“或”运算符：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">result = a || b;</span><br></pre></td></tr></table></figure>
+<p>用作于判断使用的话，有四种逻辑情况</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">alert( true || true ); // true </span><br><span class="line">alert( false || true ); // true</span><br><span class="line">alert( true || false ); // true</span><br><span class="line">alert( false || false ); // false</span><br></pre></td></tr></table></figure>
+<p>用于表达式或者变量列表使用的话</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let firstName = &quot;&quot;; // 假值</span><br><span class="line">let lastName = &quot;&quot;; // 假值</span><br><span class="line">let nickName = &quot;SuperCoder&quot;; // 真值</span><br><span class="line">alert( firstName || lastName || nickName || &quot;Anonymous&quot;); // SuperCoder</span><br></pre></td></tr></table></figure>
+<p>前面变量的值都为假，结果就是 <code>&quot;Anonymous&quot;</code>。</p>
+<h3 id="amp-amp-（与）"><a href="#amp-amp-（与）" class="headerlink" title="&amp;&amp;（与）"></a>&amp;&amp;（与）</h3><p>与运算返回第一个假值，如果没有假值就返回最后一个值。上面的规则和或运算很像。区别就是与运算返回第一个假值，而或运算返回第一个真值。</p>
+<p>两个 &amp; 符号表示 <code>&amp;&amp;</code> 与运算符：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">result = a &amp;&amp; b;</span><br></pre></td></tr></table></figure>
+<p>跟或运算符不一样的是，当值都为真值时才会返回true，这里也举四个栗子跟或运算符做比较：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">alert( true &amp;&amp; true ); // true</span><br><span class="line">alert( false &amp;&amp; true ); // false</span><br><span class="line">alert( true &amp;&amp; false ); // false </span><br><span class="line">alert( false &amp;&amp; false ); // false</span><br></pre></td></tr></table></figure>
+<h3 id="（非）"><a href="#（非）" class="headerlink" title="!（非）"></a>!（非）</h3><p>感叹符号 <code>!</code> 表示布尔非运算符。</p>
+<p>在第一篇的不等于（<code>!==</code>）使用过</p>
+<p>逻辑非运算符接受一个参数，并按如下运作：</p>
+<ol>
+<li> 将操作数转化为布尔类型：<code>true/false</code>。</li>
+<li> 返回相反的值。<br>有时候我们会看到有两个<code>!!</code>是用来将某个值转化为布尔类型<h3 id="（非空运算符）"><a href="#（非空运算符）" class="headerlink" title="??（非空运算符）"></a>??（非空运算符）</h3>与 （<code>||</code>） 或运算符一样,唯一不一样的仅当值为 null 或 undefined 时才当为假值，其余都为真。</li>
+</ol>
+<p>在非空运算符基础上还能简写<code>??= </code>空赋值运算符：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let x = null</span><br><span class="line">let y = 5</span><br><span class="line">alert(x ??= y) // =&gt; 5</span><br></pre></td></tr></table></figure>
+<p>拆分为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let x = null</span><br><span class="line">let y = 5</span><br><span class="line">alert(x = (x ?? y)) // =&gt; 5</span><br></pre></td></tr></table></figure>
+<p>但是出于安全原因，JavaScript 禁止将 <code>??</code> 运算符与 <code>&amp;&amp;</code> 和 <code>||</code> 运算符一起使用，除非使用括号明确指定了优先级。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let x = 1 &amp;&amp; 2 ?? 3; // Syntax error</span><br></pre></td></tr></table></figure>
+<p><strong>tips：</strong> </p>
+<ul>
+<li>优先级 <code>!</code> &gt; <code>&amp;&amp;</code> &gt; <code>||</code></li>
+<li>  <code>??</code> 运算符的优先级非常低，仅略高于 <code>?</code> 和 <code>=</code>，因此在表达式中使用它时请考虑添加括号。</li>
+<li>  如果没有明确添加括号，不能将其与 <code>||</code> 或 <code>&amp;&amp;</code> 一起使用。<h2 id="for和while"><a href="#for和while" class="headerlink" title="for和while"></a>for和while</h2></li>
+</ul>
+<p><strong>循环</strong> 是一种重复运行同一代码的方法。</p>
+<h3 id="while-循环"><a href="#while-循环" class="headerlink" title="while 循环"></a><code>while</code> 循环</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">while (condition) &#123;</span><br><span class="line">// 代码 </span><br><span class="line">// 所谓的“循环体”</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当 <code>condition</code> 为真时，执行循环体的 <code>code</code>。</p>
+<p>例如，以下将循环输出当 <code>i &lt; 3</code> 时的 <code>i</code> 值：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let i = 0; </span><br><span class="line">while (i &lt; 3) &#123; // 依次显示 0、1 和 2 </span><br><span class="line">    alert( i ); </span><br><span class="line">    i++; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>循环体的单次执行叫作 <strong>一次迭代</strong>。上面示例中的循环进行了三次迭代。</p>
+<p>如果上述示例中没有 <code>i++</code>，那么循环（理论上）会永远重复执行下去，称为“死循环”。浏览器提供了阻止这种循环的方法，我们可以通过终止进程，来停掉服务器端的 JavaScript。</p>
+<p>当循环体只有一条语句，则可以省略大括号 <code>&#123;…&#125;</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let i = 3; </span><br><span class="line">while (i) alert(i--);</span><br></pre></td></tr></table></figure>
+<h3 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a><code>for</code>循环</h3><p><code>for</code> 循环更加复杂，但它是最常使用的循环形式。</p>
+<p><code>for</code> 循环看起来就像这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">for (begin; condition; step) &#123; </span><br><span class="line">    // ……循环体…… </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>栗子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">for (let i = 0; i &lt; 3; i++) &#123;</span><br><span class="line">    // 结果为 0、1、2 </span><br><span class="line">    alert(i); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>分析 <code>for</code> 循环：<br>begin     | <code>i = 0</code>    | 进入循环时执行一次。                  |<br>| ——— | ———- | ————————— |<br>| condition | <code>i &lt; 3</code>    | 在每次循环迭代之前检查，如果为 false，停止循环。 |<br>| body（循环体） | <code>alert(i)</code> | 条件为真时，重复运行。                 |<br>| step      | <code>i++</code>      | 在每次循环体迭代后执行。</p>
+<p><code>for</code>循环算法的工作原理如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">开始运行 </span><br><span class="line">→ (如果 condition 成立 → 运行 body 然后运行 step) </span><br><span class="line">→ (如果 condition 成立 → 运行 body 然后运行 step) </span><br><span class="line">→ (如果 condition 成立 → 运行 body 然后运行 step) </span><br><span class="line">→ ...</span><br></pre></td></tr></table></figure>
+<p>把工作原理使用到栗子上：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// for (let i = 0; i &lt; 3; i++) alert(i) </span><br><span class="line"></span><br><span class="line">// 开始 </span><br><span class="line">let i = 0 </span><br><span class="line">// 如果条件为真，运行下一步 </span><br><span class="line">if (i &lt; 3) &#123; alert(i); i++ &#125; </span><br><span class="line">// 如果条件为真，运行下一步 </span><br><span class="line">if (i &lt; 3) &#123; alert(i); i++ &#125; </span><br><span class="line">// 如果条件为真，运行下一步 </span><br><span class="line">if (i &lt; 3) &#123; alert(i); i++ &#125; </span><br><span class="line">// ……结束，因为现在 </span><br><span class="line">i == 3</span><br></pre></td></tr></table></figure>
+<h4 id="省略语句"><a href="#省略语句" class="headerlink" title="省略语句"></a>省略语句</h4><p><code>for</code>条件中需要三个条件，这些如果不需要的话是可以省略掉的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let i = 0; </span><br><span class="line">// 我们已经声明了 i 并对它进行了赋值 </span><br><span class="line">for (; i &lt; 3; i++) &#123; // 不再需要 &quot;begin&quot; 语句段 </span><br><span class="line">    alert( i ); // 0, 1, 2 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>省略了<code>begin</code>参数，但 <strong>;</strong> 是一定要存在的。我们也可以移除 <code>step</code> 语句段：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let i = 0; </span><br><span class="line">for (; i &lt; 3;) &#123; </span><br><span class="line">    alert( i++ ); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样写法跟<code>while (i &lt; 3)</code> 等价。 <code>for</code> 的两个 <code>;</code> 必须存在，否则会出现语法错误。</p>
+<p><code>for</code>还有语句：</p>
+<table>
+<thead>
+<tr>
+<th><code>break</code></th>
+<th>强制退出循环</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>continue</code></td>
+<td><code>break</code> 的“轻量版”。它不会停掉整个循环。而是停止当前这一次迭代，并强制启动新一轮循环（如果条件允许的话）。</td>
+</tr>
+</tbody></table>
 ]]></content>
       <tags>
         <tag>JavaScript</tag>
