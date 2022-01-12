@@ -206,6 +206,34 @@
       </tags>
   </entry>
   <entry>
+    <title>Fiddler替换域名</title>
+    <url>/2022/01/12/fiddler/</url>
+    <content><![CDATA[<h1 id="通过fiddler替换域名"><a href="#通过fiddler替换域名" class="headerlink" title="通过fiddler替换域名"></a>通过fiddler替换域名</h1><blockquote>
+<p>ps：提前安装好fiddler以及配置好</p>
+</blockquote>
+<h2 id="替换app里h5页面"><a href="#替换app里h5页面" class="headerlink" title="替换app里h5页面"></a>替换app里h5页面</h2><p>腾讯视频为例原型：</p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ba08542460534507812fb85abad08c6d~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ba08542460534507812fb85abad08c6d~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="19c4b8a480bb7e8fc81e518c44cf88a.jpg"></p>
+<p>点击打开广告的h5页</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/dce3f409cb864d1ebdd667e81796f173~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/dce3f409cb864d1ebdd667e81796f173~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="8042ec1bcecec048880a518694621e6.jpg"></p>
+<p>通过fiddler可以替换域名，变为访问我们个人链接</p>
+<h3 id="1、打开主角Fiddler"><a href="#1、打开主角Fiddler" class="headerlink" title="1、打开主角Fiddler"></a>1、打开主角Fiddler</h3><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c618b4629acc40888e8df89eedfd5038~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c618b4629acc40888e8df89eedfd5038~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<h3 id="2、找到我们要更改的url"><a href="#2、找到我们要更改的url" class="headerlink" title="2、找到我们要更改的url"></a>2、找到我们要更改的url</h3><p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6eaccf6705254480892a91c21d7476c7~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6eaccf6705254480892a91c21d7476c7~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<h3 id="3、点开AutoResponder"><a href="#3、点开AutoResponder" class="headerlink" title="3、点开AutoResponder"></a>3、点开AutoResponder</h3><p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/99cdda6533734446ba5f7fa773996a2e~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/99cdda6533734446ba5f7fa773996a2e~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<h3 id="4、操作"><a href="#4、操作" class="headerlink" title="4、操作"></a>4、操作</h3><p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f92ca74a5f4e4c0aadf35c00e1c160a5~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f92ca74a5f4e4c0aadf35c00e1c160a5~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<p>全勾选上</p>
+<p>最重要的操作：</p>
+<p>点击Add rule</p>
+<p>第一条输入框：regex:(?inx)^原先的域名*</p>
+<p>第二条输入框：复制我们要更改的域名</p>
+<p>右边点击保存</p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/542b4a7544fd44f68088b8a81e082acc~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/542b4a7544fd44f68088b8a81e082acc~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<h3 id="5、完成"><a href="#5、完成" class="headerlink" title="5、完成"></a>5、完成</h3><p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c0e66ff4383c43a7afdbb5c4019f83d0~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c0e66ff4383c43a7afdbb5c4019f83d0~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="1ad0a52bf075b2e42e2b9417900e0bc.jpg"></p>
+]]></content>
+      <tags>
+        <tag>fiddler</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>快速上手搭建简易版脚手架</title>
     <url>/2020/06/03/simple-npm/</url>
     <content><![CDATA[<p><strong>前言：</strong> 使用过那么多脚手架，自己也实现一个简易版的</p>
@@ -238,34 +266,6 @@
 ]]></content>
       <tags>
         <tag>Npm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Fiddler替换域名</title>
-    <url>/2022/01/12/fiddler/</url>
-    <content><![CDATA[<h1 id="通过fiddler替换域名"><a href="#通过fiddler替换域名" class="headerlink" title="通过fiddler替换域名"></a>通过fiddler替换域名</h1><blockquote>
-<p>ps：提前安装好fiddler以及配置好</p>
-</blockquote>
-<h2 id="替换app里h5页面"><a href="#替换app里h5页面" class="headerlink" title="替换app里h5页面"></a>替换app里h5页面</h2><p>腾讯视频为例原型：</p>
-<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ba08542460534507812fb85abad08c6d~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ba08542460534507812fb85abad08c6d~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="19c4b8a480bb7e8fc81e518c44cf88a.jpg"></p>
-<p>点击打开广告的h5页</p>
-<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/dce3f409cb864d1ebdd667e81796f173~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/dce3f409cb864d1ebdd667e81796f173~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="8042ec1bcecec048880a518694621e6.jpg"></p>
-<p>通过fiddler可以替换域名，变为访问我们个人链接</p>
-<h3 id="1、打开主角Fiddler"><a href="#1、打开主角Fiddler" class="headerlink" title="1、打开主角Fiddler"></a>1、打开主角Fiddler</h3><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c618b4629acc40888e8df89eedfd5038~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c618b4629acc40888e8df89eedfd5038~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
-<h3 id="2、找到我们要更改的url"><a href="#2、找到我们要更改的url" class="headerlink" title="2、找到我们要更改的url"></a>2、找到我们要更改的url</h3><p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6eaccf6705254480892a91c21d7476c7~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6eaccf6705254480892a91c21d7476c7~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
-<h3 id="3、点开AutoResponder"><a href="#3、点开AutoResponder" class="headerlink" title="3、点开AutoResponder"></a>3、点开AutoResponder</h3><p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/99cdda6533734446ba5f7fa773996a2e~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/99cdda6533734446ba5f7fa773996a2e~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
-<h3 id="4、操作"><a href="#4、操作" class="headerlink" title="4、操作"></a>4、操作</h3><p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f92ca74a5f4e4c0aadf35c00e1c160a5~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f92ca74a5f4e4c0aadf35c00e1c160a5~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
-<p>全勾选上</p>
-<p>最重要的操作：</p>
-<p>点击Add rule</p>
-<p>第一条输入框：regex:(?inx)^原先的域名*</p>
-<p>第二条输入框：复制我们要更改的域名</p>
-<p>右边点击保存</p>
-<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/542b4a7544fd44f68088b8a81e082acc~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/542b4a7544fd44f68088b8a81e082acc~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
-<h3 id="5、完成"><a href="#5、完成" class="headerlink" title="5、完成"></a>5、完成</h3><p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c0e66ff4383c43a7afdbb5c4019f83d0~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c0e66ff4383c43a7afdbb5c4019f83d0~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="1ad0a52bf075b2e42e2b9417900e0bc.jpg"></p>
-]]></content>
-      <tags>
-        <tag>fiddler</tag>
       </tags>
   </entry>
   <entry>
