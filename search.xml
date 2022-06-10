@@ -234,38 +234,22 @@
       </tags>
   </entry>
   <entry>
-    <title>快速上手搭建简易版脚手架</title>
-    <url>/2020/06/03/simple-npm/</url>
-    <content><![CDATA[<p><strong>前言：</strong> 使用过那么多脚手架，自己也实现一个简易版的</p>
-<h2 id="了解美化脚手架依赖包："><a href="#了解美化脚手架依赖包：" class="headerlink" title="了解美化脚手架依赖包："></a>了解美化脚手架依赖包：</h2><h3 id="1、commander"><a href="#1、commander" class="headerlink" title="1、commander"></a>1、commander</h3><p>这是用来编写指令和处理命令行的，具体用法如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const program = require(&quot;commander&quot;);</span><br><span class="line">// 定义指令</span><br><span class="line">program</span><br><span class="line"> .version(&#x27;0.0.1&#x27;)</span><br><span class="line"> .command(&#x27;init&#x27;, &#x27;Generate a new project from a template&#x27;)</span><br><span class="line"> .action(() =&gt; &#123;</span><br><span class="line"> // 回调函数</span><br><span class="line"> &#125;)</span><br><span class="line">// 解析命令行参数</span><br><span class="line">program.parse(process.argv);</span><br></pre></td></tr></table></figure>
-<p>回忆一下，我们曾用过的 vue init 的命令就是这样声明的。</p>
-<h3 id="2、inquirer"><a href="#2、inquirer" class="headerlink" title="2、inquirer"></a>2、inquirer</h3><p>这是个强大的交互式命令行工具，具体用法如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const inquirer = require(&#x27;inquirer&#x27;);</span><br><span class="line">inquirer</span><br><span class="line"> .prompt([</span><br><span class="line"> // 一些交互式的问题</span><br><span class="line"> ])</span><br><span class="line"> .then(answers =&gt; &#123;</span><br><span class="line"> // 回调函数，answers 就是用户输入的内容，是个对象</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
-<h3 id="3、chalk"><a href="#3、chalk" class="headerlink" title="3、chalk"></a>3、chalk</h3><p> 这是用来修改控制台输出内容样式的，比如颜色啊，具体用法如下：<br> <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const chalk = require(&#x27;chalk&#x27;);</span><br><span class="line">console.log(chalk.green(&#x27;success&#x27;));</span><br><span class="line">console.log(chalk.red(&#x27;error&#x27;));</span><br></pre></td></tr></table></figure></p>
-<h3 id="4、ora"><a href="#4、ora" class="headerlink" title="4、ora"></a>4、ora</h3><p>这是一个好看的加载，就是你下载的时候会有个转圈圈的那种效果，用法如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const ora = require(&#x27;ora&#x27;)</span><br><span class="line">let spinner = ora(&#x27;downloading template ...&#x27;)</span><br><span class="line">spinner.start()</span><br></pre></td></tr></table></figure>
-<h3 id="5、download-git-repo"><a href="#5、download-git-repo" class="headerlink" title="5、download-git-repo"></a>5、download-git-repo</h3><p>看名字很明显了，这是用来下载远程模板的，支持 GitHub、 GitLab 和 Bitbucket 等，用法如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const download = require(&#x27;download-git-repo&#x27;)</span><br><span class="line">download(repository, destination, options, callback)</span><br></pre></td></tr></table></figure>
-<p>其中 repository 是远程仓库地址；destination 是存放下载的文件路径，也可以直接写文件名，默认就是当前目录；options 是一些选项，比如 { clone：boolean } 表示用 http download 还是 git clone 的形式下载。</p>
-<h2 id="开始："><a href="#开始：" class="headerlink" title="开始："></a>开始：</h2><h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><p>准备工作新建文件夹、在目录下执行npm init 命令 会生成一个生成 package.json 文件，在 package.json 里面写入以下依赖并执行 npm install 安装，如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;dependencies&quot;: &#123;</span><br><span class="line"> &quot;chalk&quot;: &quot;^2.4.2&quot;,</span><br><span class="line"> &quot;commander&quot;: &quot;^2.19.0&quot;,</span><br><span class="line"> &quot;download-git-repo&quot;: &quot;^1.1.0&quot;,</span><br><span class="line"> &quot;inquirer&quot;: &quot;^6.2.2&quot;,</span><br><span class="line"> &quot;ora&quot;: &quot;^3.2.0&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>新建一个 bin 文件夹，并在 bin 目录下新建一个无后缀名的 xr 文件，并写上：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/usr/bin/env node</span><br><span class="line">console.log(&#x27;hello&#x27;);</span><br></pre></td></tr></table></figure>
-<p>这个文件就是我们整个脚手架的入口文件，我们用 node ./bin/xr 运行一下，就能在控制台打印出 hello<br>这里要注意开头的 #!/usr/bin/env node<br>这个语句必须加上，主要是为了让系统看到这一行的时候，会沿着该路径去查找 node 并执行，主要是为了兼容 Mac ，确保可执行。</p>
-<h3 id="bin-目录初始化"><a href="#bin-目录初始化" class="headerlink" title="bin 目录初始化"></a>bin 目录初始化</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/usr/bin/env node</span><br><span class="line">const program = require(&#x27;commander&#x27;)</span><br><span class="line"></span><br><span class="line">// 定义当前版本</span><br><span class="line">// 定义使用方法</span><br><span class="line">// 定义四个指令</span><br><span class="line">program</span><br><span class="line"> .version(require(&#x27;../package&#x27;).version)</span><br><span class="line"> .usage(&#x27;&lt;command&gt; [options]&#x27;)</span><br><span class="line"> .command(&#x27;add&#x27;, &#x27;add a new template&#x27;)</span><br><span class="line"> .command(&#x27;delete&#x27;, &#x27;delete a template&#x27;)</span><br><span class="line"> .command(&#x27;list&#x27;, &#x27;list all the templates&#x27;)</span><br><span class="line"> .command(&#x27;init&#x27;, &#x27;generate a new project from a template&#x27;)</span><br><span class="line"> </span><br><span class="line">// 解析命令行参数</span><br><span class="line">program.parse(process.argv)</span><br></pre></td></tr></table></figure>
-<h3 id="发布到-npm"><a href="#发布到-npm" class="headerlink" title="发布到 npm"></a>发布到 npm</h3><p>既然以上命令都执行成功了，那接下来我们就把它发布到 npm 上。</p>
-<ul>
-<li>  删除 test 文件夹，它就本地测试用的</li>
-<li>  在根目录下新建 README.md 文件，使用说明</li>
-<li>  在根目录下新建 .npmignore 文件，并写入 /node_modules ，意思就是发布的时候忽略 node_modules 文件夹，</li>
-<li>  去 npm 官网注册个账号</li>
-<li>  现在让我们回到项目根目录，执行 npm login 登入 npm 账号，再执行 npm publish 发布</li>
-<li>  发布完成后使用一下，是否能正常运行。这里我们记得先用 npm unlink 解绑一下命令，不然会相互影响。下面我们打开终端，输入 npm i xr-cli -g 全局安装一下脚手架，然后执行 xr</li>
-</ul>
+    <title>provide/inject调用hook</title>
+    <url>/2021/01/10/provide-or-inject/</url>
+    <content><![CDATA[<h1 id="provide-inject调用hook"><a href="#provide-inject调用hook" class="headerlink" title="provide/inject调用hook"></a>provide/inject调用hook</h1><blockquote>
+<p>ps：hook函数每一次调用都会重新执行，导致有些数据子组件要用又重新执行生命周期一遍</p>
+</blockquote>
+<p>用到的provide/inject、symbol来封装可传递性的hook方法。这里用到是因为symbol类型是唯一、不可变的标识符</p>
+<h2 id="useProvider"><a href="#useProvider" class="headerlink" title="useProvider"></a>useProvider</h2><p>provide是一个对象，或者是一个返回对象的函数，需要属性名以及属性值。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@template <span class="variable">T</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;T&#125;</span> </span>func Hook函数</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;any[]&#125;</span> </span>args 调用Hook函数的参数列表</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns <span class="type">&#123;ReturnType&lt;T&gt;&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">useProvider</span>(<span class="params">func, ...args</span>) </span>&#123;</span><br><span class="line">  !func.token &amp;&amp; (func.token = <span class="built_in">Symbol</span>(func.name || <span class="string">&#x27;functional store&#x27;</span>));</span><br><span class="line">  <span class="keyword">const</span> depends = func(...args);</span><br><span class="line">  provide(func.token, depends);</span><br><span class="line">  <span class="keyword">return</span> depends;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="useInjector"><a href="#useInjector" class="headerlink" title="useInjector"></a>useInjector</h2><p>inject属性值是一个字符串数组，或者是一个对象。</p>
+<p>只要判断唯一标识定义的token，就可以拿到该有的属性值返回。封装就是为了复用、便利在传参是否没有provide的情况下可以自助创建。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@template <span class="variable">T</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;T&#125;</span> <span class="variable">func</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns <span class="type">&#123;ReturnType&lt;T&gt;&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">useInjector</span>(<span class="params">func, autoProvide = <span class="literal">false</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> token, name;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> func === <span class="string">&#x27;symbol&#x27;</span>) &#123;</span><br><span class="line">    token = func;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    token = func.token;</span><br><span class="line">    name = func.name;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> res = token ? inject(token) : <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">if</span> (!res) &#123;</span><br><span class="line">    <span class="keyword">if</span> (autoProvide) &#123;</span><br><span class="line">      res = useProvider(func);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">`状态钩子函数<span class="subst">$&#123;name || token&#125;</span>未在上层组件通过调用useProvider提供`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <tags>
-        <tag>Npm</tag>
+        <tag>vue3</tag>
       </tags>
   </entry>
   <entry>
@@ -324,6 +308,58 @@
 ]]></content>
       <tags>
         <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>快速上手搭建简易版脚手架</title>
+    <url>/2020/06/03/simple-npm/</url>
+    <content><![CDATA[<p><strong>前言：</strong> 使用过那么多脚手架，自己也实现一个简易版的</p>
+<h2 id="了解美化脚手架依赖包："><a href="#了解美化脚手架依赖包：" class="headerlink" title="了解美化脚手架依赖包："></a>了解美化脚手架依赖包：</h2><h3 id="1、commander"><a href="#1、commander" class="headerlink" title="1、commander"></a>1、commander</h3><p>这是用来编写指令和处理命令行的，具体用法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const program = require(&quot;commander&quot;);</span><br><span class="line">// 定义指令</span><br><span class="line">program</span><br><span class="line"> .version(&#x27;0.0.1&#x27;)</span><br><span class="line"> .command(&#x27;init&#x27;, &#x27;Generate a new project from a template&#x27;)</span><br><span class="line"> .action(() =&gt; &#123;</span><br><span class="line"> // 回调函数</span><br><span class="line"> &#125;)</span><br><span class="line">// 解析命令行参数</span><br><span class="line">program.parse(process.argv);</span><br></pre></td></tr></table></figure>
+<p>回忆一下，我们曾用过的 vue init 的命令就是这样声明的。</p>
+<h3 id="2、inquirer"><a href="#2、inquirer" class="headerlink" title="2、inquirer"></a>2、inquirer</h3><p>这是个强大的交互式命令行工具，具体用法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const inquirer = require(&#x27;inquirer&#x27;);</span><br><span class="line">inquirer</span><br><span class="line"> .prompt([</span><br><span class="line"> // 一些交互式的问题</span><br><span class="line"> ])</span><br><span class="line"> .then(answers =&gt; &#123;</span><br><span class="line"> // 回调函数，answers 就是用户输入的内容，是个对象</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="3、chalk"><a href="#3、chalk" class="headerlink" title="3、chalk"></a>3、chalk</h3><p> 这是用来修改控制台输出内容样式的，比如颜色啊，具体用法如下：<br> <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const chalk = require(&#x27;chalk&#x27;);</span><br><span class="line">console.log(chalk.green(&#x27;success&#x27;));</span><br><span class="line">console.log(chalk.red(&#x27;error&#x27;));</span><br></pre></td></tr></table></figure></p>
+<h3 id="4、ora"><a href="#4、ora" class="headerlink" title="4、ora"></a>4、ora</h3><p>这是一个好看的加载，就是你下载的时候会有个转圈圈的那种效果，用法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const ora = require(&#x27;ora&#x27;)</span><br><span class="line">let spinner = ora(&#x27;downloading template ...&#x27;)</span><br><span class="line">spinner.start()</span><br></pre></td></tr></table></figure>
+<h3 id="5、download-git-repo"><a href="#5、download-git-repo" class="headerlink" title="5、download-git-repo"></a>5、download-git-repo</h3><p>看名字很明显了，这是用来下载远程模板的，支持 GitHub、 GitLab 和 Bitbucket 等，用法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const download = require(&#x27;download-git-repo&#x27;)</span><br><span class="line">download(repository, destination, options, callback)</span><br></pre></td></tr></table></figure>
+<p>其中 repository 是远程仓库地址；destination 是存放下载的文件路径，也可以直接写文件名，默认就是当前目录；options 是一些选项，比如 { clone：boolean } 表示用 http download 还是 git clone 的形式下载。</p>
+<h2 id="开始："><a href="#开始：" class="headerlink" title="开始："></a>开始：</h2><h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><p>准备工作新建文件夹、在目录下执行npm init 命令 会生成一个生成 package.json 文件，在 package.json 里面写入以下依赖并执行 npm install 安装，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;dependencies&quot;: &#123;</span><br><span class="line"> &quot;chalk&quot;: &quot;^2.4.2&quot;,</span><br><span class="line"> &quot;commander&quot;: &quot;^2.19.0&quot;,</span><br><span class="line"> &quot;download-git-repo&quot;: &quot;^1.1.0&quot;,</span><br><span class="line"> &quot;inquirer&quot;: &quot;^6.2.2&quot;,</span><br><span class="line"> &quot;ora&quot;: &quot;^3.2.0&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>新建一个 bin 文件夹，并在 bin 目录下新建一个无后缀名的 xr 文件，并写上：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/usr/bin/env node</span><br><span class="line">console.log(&#x27;hello&#x27;);</span><br></pre></td></tr></table></figure>
+<p>这个文件就是我们整个脚手架的入口文件，我们用 node ./bin/xr 运行一下，就能在控制台打印出 hello<br>这里要注意开头的 #!/usr/bin/env node<br>这个语句必须加上，主要是为了让系统看到这一行的时候，会沿着该路径去查找 node 并执行，主要是为了兼容 Mac ，确保可执行。</p>
+<h3 id="bin-目录初始化"><a href="#bin-目录初始化" class="headerlink" title="bin 目录初始化"></a>bin 目录初始化</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/usr/bin/env node</span><br><span class="line">const program = require(&#x27;commander&#x27;)</span><br><span class="line"></span><br><span class="line">// 定义当前版本</span><br><span class="line">// 定义使用方法</span><br><span class="line">// 定义四个指令</span><br><span class="line">program</span><br><span class="line"> .version(require(&#x27;../package&#x27;).version)</span><br><span class="line"> .usage(&#x27;&lt;command&gt; [options]&#x27;)</span><br><span class="line"> .command(&#x27;add&#x27;, &#x27;add a new template&#x27;)</span><br><span class="line"> .command(&#x27;delete&#x27;, &#x27;delete a template&#x27;)</span><br><span class="line"> .command(&#x27;list&#x27;, &#x27;list all the templates&#x27;)</span><br><span class="line"> .command(&#x27;init&#x27;, &#x27;generate a new project from a template&#x27;)</span><br><span class="line"> </span><br><span class="line">// 解析命令行参数</span><br><span class="line">program.parse(process.argv)</span><br></pre></td></tr></table></figure>
+<h3 id="发布到-npm"><a href="#发布到-npm" class="headerlink" title="发布到 npm"></a>发布到 npm</h3><p>既然以上命令都执行成功了，那接下来我们就把它发布到 npm 上。</p>
+<ul>
+<li>  删除 test 文件夹，它就本地测试用的</li>
+<li>  在根目录下新建 README.md 文件，使用说明</li>
+<li>  在根目录下新建 .npmignore 文件，并写入 /node_modules ，意思就是发布的时候忽略 node_modules 文件夹，</li>
+<li>  去 npm 官网注册个账号</li>
+<li>  现在让我们回到项目根目录，执行 npm login 登入 npm 账号，再执行 npm publish 发布</li>
+<li>  发布完成后使用一下，是否能正常运行。这里我们记得先用 npm unlink 解绑一下命令，不然会相互影响。下面我们打开终端，输入 npm i xr-cli -g 全局安装一下脚手架，然后执行 xr</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Npm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vue3配置404notFound</title>
+    <url>/2021/12/03/vue3config404notFound/</url>
+    <content><![CDATA[<h2 id="vue3配置404notFound"><a href="#vue3配置404notFound" class="headerlink" title="vue3配置404notFound"></a>vue3配置404notFound</h2><p>常规参数只匹配 url 片段之间的字符，用 <code>/</code> 分隔。其实在<a href="https://router.vuejs.org/zh/guide/essentials/dynamic-matching.html#%E6%8D%95%E8%8E%B7%E6%89%80%E6%9C%89%E8%B7%AF%E7%94%B1%E6%88%96-404-not-found-%E8%B7%AF%E7%94%B1">router官网</a>中有写可用正则来自定义，官网是这样写：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">  <span class="comment">// 将匹配所有内容并将其放在 `$route.params.pathMatch` 下</span></span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;/:pathMatch(.*)*&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;NotFound&#x27;</span>, <span class="attr">component</span>: NotFound &#125;,</span><br><span class="line">  <span class="comment">// 将匹配以 `/user-` 开头的所有内容，并将其放在 `$route.params.afterUser` 下</span></span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;/user-:afterUser(.*)&#x27;</span>, <span class="attr">component</span>: UserGeneric &#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>在一般设置404页面路由的时候我们便是：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="attr">path</span>: <span class="string">&quot;/404&quot;</span>,</span><br><span class="line"><span class="attr">name</span>: <span class="string">&quot;notFound&quot;</span>,</span><br><span class="line"><span class="attr">component</span>: notFound</span><br><span class="line">&#125;, &#123;</span><br><span class="line"><span class="attr">path</span>: <span class="string">&quot;*&quot;</span>, <span class="comment">// 此处需特别注意置于最底部</span></span><br><span class="line"><span class="attr">redirect</span>: <span class="string">&quot;/404&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是使用的是vue3的话,会遇到这样的一个报错:</p>
+<p>Catch all routes (“*”) must now be defined using a param with a custom regexp.</p>
+<p>这个报错翻译过来就是捕获所有路由（“*”）现在必须使用带有自定义regexp的参数定义</p>
+]]></content>
+      <tags>
+        <tag>vue3</tag>
       </tags>
   </entry>
   <entry>
