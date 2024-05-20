@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+        <link rel="shortcut icon" href="/images/favicon-16x16.ico">
+    
+    
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+    
+    
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+    
+    
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-128x128.png">
+    
+    
+
+
+    <!-- meta -->
+
+
+<title>温故而知新（巩固js基础第一篇） | 白墙博客</title>
+
+
+    <meta name="keywords" content="JavaScript, JavaScript,TypeScript，vue3.x，Es系列，Css系列">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="js为什么要单独开一个文件存放：js在浏览器作为单独文件有一个好处就是浏览器会下载它，然后保存到浏览器的缓存中。之后，其他页面想要相同的脚本就会从缓存中获取，而不是下载它。所以文件实际上只会下载一次。这可以节省流量，并使得页面（加载）更快。 代码结构代码结构的第一件事就是学会构建代码块。为什么？提高可读性 语句： 通常，每条语句独占一行，以提高代码的可读性 分号： 一个很少被重视的问题，因为在大多">
+<meta property="og:type" content="article">
+<meta property="og:title" content="温故而知新（巩固js基础第一篇）">
+<meta property="og:url" content="http://example.com/2024/05/20/base/index.html">
+<meta property="og:site_name" content="白墙博客">
+<meta property="og:description" content="js为什么要单独开一个文件存放：js在浏览器作为单独文件有一个好处就是浏览器会下载它，然后保存到浏览器的缓存中。之后，其他页面想要相同的脚本就会从缓存中获取，而不是下载它。所以文件实际上只会下载一次。这可以节省流量，并使得页面（加载）更快。 代码结构代码结构的第一件事就是学会构建代码块。为什么？提高可读性 语句： 通常，每条语句独占一行，以提高代码的可读性 分号： 一个很少被重视的问题，因为在大多">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-05-20T06:15:46.542Z">
+<meta property="article:modified_time" content="2024-05-20T06:15:46.542Z">
+<meta property="article:author" content="白墙">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary_large_image">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="/css/highlight/default.css" media="none" >
+        
+            <link rel="stylesheet" id="hl-dark-theme" href="/css/highlight/dark.css" media="none">
+        
+    
+
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/style/dark.css">
+
+    
+<script src="/js/darkmode.js"></script>
+
+
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="白墙博客" type="application/atom+xml">
+</head>
+
+    <body>
+        <div id="app">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">白墙博客</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/" class="navbar-menu button">首页</a>
+                
+                    <a href="/tags/" class="navbar-menu button">标签</a>
+                
+                    <a href="/archives/" class="navbar-menu button">归档</a>
+                
+                    <a target="_blank" rel="noopener" href="https://github.com/blank-wall" class="navbar-menu button">GitHub</a>
+                
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/user/3500480279359166" class="navbar-menu button">掘金</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+    <a href="javaScript:void(0);" id="btn-toggle-dark">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/" class="dropdown-menu button">首页</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">标签</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">归档</a>
+                
+                    <a target="_blank" rel="noopener" href="https://github.com/blank-wall" class="dropdown-menu button">GitHub</a>
+                
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/user/3500480279359166" class="dropdown-menu button">掘金</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        温故而知新（巩固js基础第一篇）
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2024/05/" class="post-meta__date button">2024-05-20</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84"><span class="toc-text">代码结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-text">变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-text">类型转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">基础运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%80%BC%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-text">值的比较</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">文章目录</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84"><span class="toc-text">代码结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-text">变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-text">类型转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">基础运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%80%BC%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-text">值的比较</span></a></li></ol>
+    </div>
+
+
+<article class="post post__with-toc content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <p>js为什么要单独开一个文件存放：<br>js在浏览器作为单独文件有一个好处就是浏览器会下载它，然后保存到浏览器的缓存中。<br>之后，其他页面想要相同的脚本就会从缓存中获取，而不是下载它。所以文件实际上只会下载一次。<br>这可以节省流量，并使得页面（加载）更快。</p>
+<h2 id="代码结构"><a href="#代码结构" class="headerlink" title="代码结构"></a>代码结构</h2><p>代码结构的第一件事就是学会构建代码块。为什么？提高可读性</p>
+<p><strong>语句：</strong> 通常，每条语句独占一行，以提高代码的可读性</p>
+<p><strong>分号：</strong> 一个很少被重视的问题，因为在<strong>大多数情况</strong>下可以省略分号。<strong>但是“大多数情况”并不意味着“总是”！</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/** 举个栗子 */</span><br><span class="line"></span><br><span class="line">alert(&quot;There will be an error&quot;)</span><br><span class="line"></span><br><span class="line">[1, 2].forEach(alert)</span><br></pre></td></tr></table></figure>
+<p>如果我们运行代码，只有第一个 <code>alert</code> 语句的内容被显示了出来，随后我们收到了一个错误！为什么？因为在js并不会在方括号 <code>[...]</code> 前添加一个隐式的分号。</p>
+<p>第一个例子中的代码改为一条简单的语句，我们从引擎看到的是这样的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(&quot;There will be an error&quot;)[1, 2].forEach(alert)</span><br></pre></td></tr></table></figure>
+<p><strong>怎么解决：</strong> 我们在第一个 <code>alert(&quot;There will be an error&quot;);</code> 语句末尾加上一个分号，就工作正常了 。</p>
+<p><strong>tips：</strong> 避免这种情况除了习惯的写完一条语句后在后面添加分号，还可以使用快捷格式化方式也可以达到语句后面自动加上分号。在vscode编译器的情况下要去除自动添加分号的话，安装  prettier 插件，在settings.json中添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&quot;vetur.format.defaultFormatterOptions&quot;: &#123;</span><br><span class="line">    &quot;prettier&quot;: &#123;</span><br><span class="line">        &quot;semi&quot;: false,</span><br><span class="line">        &quot;singleQuote&quot;: true</span><br><span class="line">    &#125; </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注释：</strong> 利用好注释可以省很多代码上的沟通和理解，但也要减少没必要的注释，栗子<code>name // 姓名</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">  单行注释 //</span><br><span class="line">  多行注释 /* */</span><br><span class="line">  jsDoc注释 更多用于构造函数</span><br><span class="line">/**</span><br><span class="line"></span><br><span class="line">*  解释该函数有什么作用</span><br><span class="line"></span><br><span class="line">* @constructor</span><br><span class="line"></span><br><span class="line">* @param &#123;参数类型&#125; title - 参数</span><br><span class="line"></span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+<p><strong>tips：</strong> 注释不能嵌套注释，否则会报错</p>
+<h1 id="现代模式（严格模式），”use-strict”"><a href="#现代模式（严格模式），”use-strict”" class="headerlink" title="现代模式（严格模式），”use strict”"></a>现代模式（严格模式），”use strict”</h1><p><strong>什么是现代模式（严格模式）</strong> js是不断进步的，一些新功能出来就有一些旧功能的抛弃，但为了兼容旧功能的代码就会保留着旧功能的使用。 <strong>“use strict”</strong> 这个指令看上去像一个字符串 <code>&quot;use strict&quot;</code> 或者 <code>&#39;use strict&#39;</code>。当它处于脚本文件的顶部时，那么整个脚本的文件都将进行 <strong>严格模式</strong>。 同样的代码，在”严格模式”中，可能会有不一样的运行结果；一些在”正常模式”下可以运行的语句，在”严格模式”下将不能运行。</p>
+<p><strong>为什么要使用</strong> 为了避免写js语法的一些不合理、不严谨之处，减少一些怪异行为</p>
+<ul>
+<li>  消除代码运行的一些不安全之处，保证代码运行的安全；</li>
+<li>  提高编译器效率，增加运行速度；</li>
+<li>  为未来新版本的Javascript做好铺垫。</li>
+</ul>
+<p><strong>tips：</strong> <code>&quot;use strict&quot;</code> 指令只允许出现在脚本或函数的开头。否则严格模式可能无法启用。</p>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p><code>变量</code>是数据的“命名存储”。我们可以使用变量来保存商品、访客和其他信息。<br>使用<code>let var const</code>声明，才能使用变量</p>
+<p><strong>注意事项：</strong> 1.大小写之分。2.允许非英文字母，但不推荐。3.不能用保留字来声明变量。4.未采用 <code>use strict</code> 下的赋值，在严格模式下直接赋值没有声明是会报错的，在普通模式下仍然可以正常工作，这是为了保持对旧脚本的兼容，所以要按严格模式变量都要进行声明。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 注意：这个例子中没有 &quot;use strict&quot; </span><br><span class="line">num = 5; </span><br><span class="line">// 如果变量 &quot;num&quot; 不存在，就会被创建 </span><br><span class="line">alert(num); // 5</span><br><span class="line"></span><br><span class="line">// 这个是有 &quot;use strict&quot; </span><br><span class="line">&quot;use strict&quot;; </span><br><span class="line">num = 5; // 错误：num 未定义</span><br></pre></td></tr></table></figure>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>在 js 中有 8 种基本的数据类型（译注：7 种原始类型和 1 种引用类型）。<br><code>Number</code>（数字）<code>bigint</code>（整数）<code>String</code>（字符串）<code>Object</code>（对象 特殊类型）<code>Boolean</code>（布尔值）<code>Undefined</code>（独立类型）<code>Null</code>（独立类型）<code>Array</code>（数组）<code>Function</code>（函数）<code>Symbol</code>（新增类型）<code>typeof</code>（运算符）</p>
+<p><strong>基本数据类型</strong></p>
+<ul>
+<li>  <code>number</code> 用于任何类型的数字：整数或浮点数，在 <code>±(253-1)</code> 范围内的整数。</li>
+<li>  <code>bigint</code> 用于任意长度的整数。</li>
+<li>  <code>string</code> 用于字符串：一个字符串可以包含 0 个或多个字符，所以没有单独的单字符类型。</li>
+<li>  <code>boolean</code> 用于 <code>true</code> 和 <code>false</code>。</li>
+<li>  <code>null</code> 用于未知的值 —— 只有一个 <code>null</code> 值的独立类型。</li>
+<li>  <code>undefined</code> 用于未定义的值 —— 只有一个 <code>undefined</code> 值的独立类型。</li>
+<li>  <code>symbol</code> 用于唯一的标识符。</li>
+<li>  <code>object</code> 用于更复杂的数据结构</li>
+</ul>
+<p><strong>其他数据类型</strong><br>-<code>Array</code>用于数组[]数据结构</p>
+<ul>
+<li><code>Function</code>用于函数</li>
+</ul>
+<h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><p><strong>字符串（string）转换</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let value = true;</span><br><span class="line">alert(typeof value); // boolean</span><br><span class="line">value = String(value); // 现在，值是一个字符串形式的 &quot;true&quot; </span><br><span class="line">alert(typeof value); // string</span><br><span class="line"></span><br><span class="line">字符串转换最明显。`false` 变成 `&quot;false&quot;`，`null` 变成 `&quot;null&quot;` 等。</span><br></pre></td></tr></table></figure>
+<p><strong>数字型（number）转换</strong><br>在算术函数和表达式中，会自动进行 number 类型转换。 但 + 等于拼接， 栗子<code>&#39;1&#39;+&#39;1&#39;</code>会等于11，要手动转为数字才会相加<code>Number()</code>函数进行转换。如果该字符串不是一个有效的数字，转换的结果会是 <code>NaN</code></p>
+<ul>
+<li><code>undefined</code> 会变成 <code>NaN</code></li>
+<li><code>null</code> 会变成 <code>0</code></li>
+<li><code>true 和 false</code> 会变成<code>0 and 1</code></li>
+<li><code>string</code> 会变成去掉首尾空格后的纯数字字符串中含有的数字。如果剩余字符串为空，则转换结果为 <code>0</code>。否则，将会从剩余字符串中“读取”数字。当类型转换出现 error 时返回 <code>NaN</code>。</li>
+</ul>
+<h2 id="基础运算符"><a href="#基础运算符" class="headerlink" title="基础运算符"></a>基础运算符</h2><ol>
+<li><strong>运算元：</strong> 运算符应用的对象。比如说乘法运算 <code>5 * 2</code>，有两个运算元：左运算元 <code>5</code> 和右运算元 <code>2</code>。更多称为“参数”而不是“运算元”。</li>
+<li><strong>一元运算符：</strong> 如果一个运算符对应的只有一个运算元，那么它是 <strong>一元运算符</strong>。</li>
+<li><strong>二元运算符：</strong> 如果一个运算符拥有两个运算元，那么它是 <strong>二元运算符</strong>。</li>
+<li><strong>赋值运算符：</strong> <code>=</code> 也是一个运算符</li>
+<li><strong>链式运算符</strong> 可读性不高，所以不常使用</li>
+<li><strong>位运算符：</strong> 位运算符把运算元当做 32 位整数，并在它们的二进制表现形式上操作 。Web 开发中很少使用它们</li>
+<li><strong>逗号运算符：</strong> 是最少见最不常使用的运算符之一。有时候它会被用来写更简短的代码。可读性不高，所以不常使用</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">一元运算符作用是对数字进行正负转换</span><br><span class="line">let x = 1;</span><br><span class="line">x = -x;</span><br><span class="line">alert( x ); // -1，一元负号运算符生效</span><br><span class="line"></span><br><span class="line">二元运算符作用是对数字的算术</span><br><span class="line">let x = 1, y = 3;</span><br><span class="line">alert( y - x ); // 2，二元运算符减号做减运算</span><br><span class="line"></span><br><span class="line">链式运算符作用是对多个互相关联二元运算符以及赋值运算符时的简写，缺点可读性不高</span><br><span class="line">let a, b, c;</span><br><span class="line">a = b = c = 2 + 2;</span><br><span class="line">alert( a ); // 4 alert( b ); // 4 alert( c ); // 4</span><br><span class="line">出于可读性，最好将这种代码分成几行</span><br><span class="line">c = 2 + 2;</span><br><span class="line">b = c;</span><br><span class="line">a = c;</span><br><span class="line"></span><br><span class="line">缩写运算符</span><br><span class="line">let n = 2;</span><br><span class="line">n = n + 5;</span><br><span class="line">n = n * 2;</span><br><span class="line">可缩写为</span><br><span class="line">let n = 2;</span><br><span class="line">n += 5; // 现在 n = 7（等同于 n = n + 5）</span><br><span class="line">n *= 2; // 现在 n = 14（等同于 n = n * 2）</span><br><span class="line">alert( n ); // 14</span><br><span class="line">自增</span><br><span class="line">let counter = 2;</span><br><span class="line">counter++; // 和 counter = counter + 1 效果一样，但是更简洁 </span><br><span class="line">alert( counter ); // 3</span><br><span class="line">自减</span><br><span class="line">let counter = 2;</span><br><span class="line">counter--; // 和 counter = counter - 1 效果一样，但是更简洁 </span><br><span class="line">alert( counter ); // 1</span><br><span class="line"></span><br><span class="line">逗号运算符</span><br><span class="line">let a = (1 + 2, 3 + 4);</span><br><span class="line">alert( a ); // 7（3 + 4 的结果）</span><br></pre></td></tr></table></figure>
+<p>二元运算符支持以下数学运算：</p>
+<ul>
+<li>  加法 <code>+</code></li>
+<li>  减法 <code>-</code></li>
+<li>  乘法 <code>*</code></li>
+<li>  除法 <code>/</code></li>
+<li>  取余 <code>%</code>： 取余运算符是 <code>%</code>，尽管它看起来很像百分数，但实际并无关联。一个表达式的值除以另一个表达式的值，返回余数。<strong>公式</strong>：result = numberA % numberB <strong>返回值</strong>：result，任何变量 <strong>参数</strong>：numberA，任何数值表达式。；numberB，任何数值表达式。 <strong>说明</strong>：取余（或余数）运算符用 number1 除以 number2 （把浮点数四舍五入为整数），然后只返回余数作为 result。</li>
+<li>  求幂 <code>**</code>：求幂运算 <code>a ** b</code> 是 <code>a</code> 乘以自身 <code>b</code> 次。</li>
+</ul>
+<p>位运算符：</p>
+<ul>
+<li>  按位与 ( <code>&amp;</code> )</li>
+<li>  按位或 ( <code>|</code> )</li>
+<li>  按位异或 ( <code>^</code> )</li>
+<li>  按位非 ( <code>~</code> )</li>
+<li>  左移 ( <code>&lt;&lt;</code> )</li>
+<li>  右移 ( <code>&gt;&gt;</code> )</li>
+<li>  无符号右移 ( <code>&gt;&gt;&gt;</code> )</li>
+</ul>
+<p><strong>tips：</strong> 一元运算符优先级高于二元运算符，自增/自减只能应用于变量。运算符都有优先级。</p>
+<h2 id="值的比较"><a href="#值的比较" class="headerlink" title="值的比较"></a>值的比较</h2><ul>
+<li><code>&lt;</code> 小于</li>
+<li><code>&gt;</code> 大于</li>
+<li><code>&gt;=</code> 大于等于</li>
+<li><code>&lt;=</code> 小于等于</li>
+<li><code>==</code> 等于</li>
+<li><code>===</code> 全等</li>
+<li><code>!=</code> 不等于</li>
+<li><code>!==</code> 不全等<br>等于与全等区别：等于不进行数据类型判断，全等会进行判断。<br>栗子：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">它们不相等，因为它们属于不同的类型。</span><br><span class="line">alert( null === undefined ); // false</span><br><span class="line">仅仅等于对方而不等于其他任何的值</span><br><span class="line">alert( null == undefined ); // true</span><br></pre></td></tr></table></figure>
+<p><strong>tips：</strong> <code>undefined</code> 不应该被与其他值进行比较</p>
+
+    </div>
+     
+    <div class="post-footer__meta"><p>更新于 2024-05-20</p></div> 
+    <div class="post-entry__tags"><a href="/tags/JavaScript/" class="post-tags__link button"># JavaScript</a></div> 
+</article>
+
+
+    <div class="nav">
+        <div class="nav__prev">
+            
+                <a href="/2024/05/20/blog/" class="nav__link">
+                    <div>
+                        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M589.088 790.624L310.464 512l278.624-278.624 45.248 45.248L400.96 512l233.376 233.376z" fill="#808080"></path></svg>
+                    </div>
+                    <div>
+                        <div class="nav__label">
+                            Previous Post
+                        </div>
+                        <div class="nav__title">
+                            从零开始建博客
+                        </div>
+                    </div>
+                </a>
+            
+        </div>
+        <div class="nav__next">
+            
+                <a href="/2024/05/20/base-two/" class="nav__link">
+                    <div>
+                        <div class="nav__label">
+                            Next Post
+                        </div>
+                        <div class="nav__title">
+                            温故而知新（巩固js基础第二篇）
+                        </div>
+                    </div>
+                    <div>
+                        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M434.944 790.624l-45.248-45.248L623.04 512l-233.376-233.376 45.248-45.248L713.568 512z" fill="#808080"></path></svg>
+                    </div>
+                </a>
+            
+        </div>
+    </div>
+
+
+
+    <div class="post__comments post__with-toc content-card" id="comment">
+        
+    <h4>评论</h4>
+    
+    
+    
+    
+    
+    <div id="gitalk-container"></div>
+
+    
+    
+    
+    
+    
+    
+
+
+    </div>
+
+
+
+</main>
+
+            <footer class="footer">
+     
+    <a href="#" class="button" id="b2t" aria-label="回到顶部" title="回到顶部">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2024 <a href="/">白墙博客</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+        
+    <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+    <script>
+        window.lazyLoadOptions = {
+            elements_selector: ".lazy",
+            threshold: 0
+        };
+    </script>
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+ 
+
+
+
+ 
+
+
+    
+ 
+
+
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.4.1/dist/jquery.fancybox.min.css">
+
+    
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.4.1/dist/jquery.fancybox.min.js"></script>
+
+    <script>
+        let lazyloadT = Boolean('true'),
+            auto_fancybox = Boolean('false')
+        if (auto_fancybox) {
+            $(".post__content").find('img').each(function () {
+                var element = document.createElement("a");
+                $(element).attr("data-fancybox", "gallery");
+                $(element).attr("href", $(this).attr("src"));
+                if (lazyloadT) {
+                    $(element).attr("href", $(this).attr("data-srcset"));
+                }
+                $(this).wrap(element);
+            });
+        } else {
+            $(".post__content").find("fancybox").find('img').each(function () {
+                var element = document.createElement("a");
+                $(element).attr("data-fancybox", "gallery");
+                $(element).attr("href", $(this).attr("src"));
+                if (lazyloadT) {
+                    $(element).attr("href", $(this).attr("data-srcset"));
+                }
+                $(this).wrap(element);
+            });
+        }
+    </script>
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+    
+
+    
+    
+    
+
+    
+    
+    
+    <script>
+        function loadComment() {
+            let e, i;
+            (e = document.createElement("script")).src = 'https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js',
+            document.body.appendChild(e);
+            e.onload = () => {
+                var gitalk = new Gitalk({
+                    clientID: 'ceae62bea2bc1e8997ef',
+                    clientSecret: '177720ba49d909975531c3534f0e7c2ba1d6c1a3',
+                    repo: 'white-wall',
+                    owner: 'blank-wall',
+                    admin: 'blank-wall',
+                    id: window.location.pathname,
+                    distractionFreeMode: false
+                });
+                gitalk.render('gitalk-container');
+            };
+            (i = document.createElement("link")).rel = "stylesheet",
+            i.href = 'https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css',
+            document.head.appendChild(i);
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+
+
+
+    </body>
+</html>

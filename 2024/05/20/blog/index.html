@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+        <link rel="shortcut icon" href="/images/favicon-16x16.ico">
+    
+    
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+    
+    
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+    
+    
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-128x128.png">
+    
+    
+
+
+    <!-- meta -->
+
+
+<title>从零开始建博客 | 白墙博客</title>
+
+
+    <meta name="keywords" content="GitHub, JavaScript,TypeScript，vue3.x，Es系列，Css系列">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="前言： 想弄个博客网站，就会联想到不得有台服务器吗？不得搞数据库吗？不得注册域名吗？没事，如果都没有，那照样是能搭建一个博客的。这里就要记录如何使用GitHub来建属于自己的博客。 安装环境Node下载地址：https:&#x2F;&#x2F;nodejs.org&#x2F;zh-cn&#x2F;download&#x2F; 可以安装 Stable 版本。安装完毕之后，确保环境变量配置好，能正常使用 npm 命令 HexoHexo是一个博客框架，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零开始建博客">
+<meta property="og:url" content="http://example.com/2024/05/20/blog/index.html">
+<meta property="og:site_name" content="白墙博客">
+<meta property="og:description" content="前言： 想弄个博客网站，就会联想到不得有台服务器吗？不得搞数据库吗？不得注册域名吗？没事，如果都没有，那照样是能搭建一个博客的。这里就要记录如何使用GitHub来建属于自己的博客。 安装环境Node下载地址：https:&#x2F;&#x2F;nodejs.org&#x2F;zh-cn&#x2F;download&#x2F; 可以安装 Stable 版本。安装完毕之后，确保环境变量配置好，能正常使用 npm 命令 HexoHexo是一个博客框架，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b95d67b1c038406d8d1ebf7ee71677ca~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8f824dfd20594266bcc4fdd86b69a847~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/66df853970d146439719d75b3653b04c~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1dc6c502a74349cd9e36c3d4cd6a21fd~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/976469bb59ca4e96a0e36c2265320ef7~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/10345abcc3654d60a8cb87096ec78c09~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/354013e44be745639d74ad3fc0a90817~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fb6276f4231f44149f4efc5848744d42~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9fb2b645f57e459c957e9fa0f31790a9~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4a538a7990104a169b322027dd93b15a~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c1cddbd9c19c4f9cbf1b30aa89ba40cc~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e1d8f5c99abc4d7cabfdfcaa0b640dba~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3d139d45378e4f68880e64cf0d9566a4~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/497cb85022214b599f7cceb492cd7ec7~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/933c0a9ce0724d6f9382f9edd71f5255~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5946b3b0faac4695ac6a37687d7184bd~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9561e98e3e344c0e82782333555f3f94~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2a9c9b0c940244cab46c9ce4ec3a39c0~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d07dbdad022e4895aada8e13b555b37a~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c1183c2f021b41bd9be5c1b343223c39~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7ad77127849c42fd981d1127da130c70~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f0c4cf4e840e4632970da12abdcac0e0~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1ec93034f57f416f9d8bde68e826235f~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/99669318d38949878b58893ecbcd509c~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6431043265a94e75b5ebd1cf696020c7~tplv-k3u1fbpfcp-watermark.image">
+<meta property="article:published_time" content="2024-05-20T06:15:46.544Z">
+<meta property="article:modified_time" content="2024-05-20T06:15:46.545Z">
+<meta property="article:author" content="白墙">
+<meta property="article:tag" content="GitHub">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b95d67b1c038406d8d1ebf7ee71677ca~tplv-k3u1fbpfcp-watermark.image">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="/css/highlight/default.css" media="none" >
+        
+            <link rel="stylesheet" id="hl-dark-theme" href="/css/highlight/dark.css" media="none">
+        
+    
+
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/style/dark.css">
+
+    
+<script src="/js/darkmode.js"></script>
+
+
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="白墙博客" type="application/atom+xml">
+</head>
+
+    <body>
+        <div id="app">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">白墙博客</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/" class="navbar-menu button">首页</a>
+                
+                    <a href="/tags/" class="navbar-menu button">标签</a>
+                
+                    <a href="/archives/" class="navbar-menu button">归档</a>
+                
+                    <a target="_blank" rel="noopener" href="https://github.com/blank-wall" class="navbar-menu button">GitHub</a>
+                
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/user/3500480279359166" class="navbar-menu button">掘金</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+    <a href="javaScript:void(0);" id="btn-toggle-dark">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/" class="dropdown-menu button">首页</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">标签</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">归档</a>
+                
+                    <a target="_blank" rel="noopener" href="https://github.com/blank-wall" class="dropdown-menu button">GitHub</a>
+                
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/user/3500480279359166" class="dropdown-menu button">掘金</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        从零开始建博客
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2024/05/" class="post-meta__date button">2024-05-20</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E7%8E%AF%E5%A2%83"><span class="toc-text">安装环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Node"><span class="toc-text">Node</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo"><span class="toc-text">Hexo</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-text">创建项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E9%83%A8%E7%BD%B2"><span class="toc-text">开始部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%8D%A2%E4%B8%BB%E9%A2%98"><span class="toc-text">更换主题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E9%A2%98%E6%A0%B7%E5%BC%8F"><span class="toc-text">主题样式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%B4%E5%83%8F"><span class="toc-text">头像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RSS"><span class="toc-text">RSS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="toc-text">代码块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%85%E8%AF%BB%E8%BF%9B%E5%BA%A6"><span class="toc-text">阅读进度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B9%A6%E7%AD%BE"><span class="toc-text">书签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#github-banner"><span class="toc-text">github_banner</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%84%E8%AE%BA"><span class="toc-text">评论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E5%88%B7%E6%96%B0%E5%8A%A0%E8%BD%BD"><span class="toc-text">无刷新加载</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E7%AB%A0"><span class="toc-text">文章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE%E9%A1%B5"><span class="toc-text">标签页</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E9%A1%B5"><span class="toc-text">搜索页</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#404%E9%A1%B5%E9%9D%A2"><span class="toc-text">404页面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E8%84%9A%E6%9C%AC"><span class="toc-text">部署脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D"><span class="toc-text">自定义域名</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">文章目录</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E7%8E%AF%E5%A2%83"><span class="toc-text">安装环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Node"><span class="toc-text">Node</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo"><span class="toc-text">Hexo</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-text">创建项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E9%83%A8%E7%BD%B2"><span class="toc-text">开始部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%8D%A2%E4%B8%BB%E9%A2%98"><span class="toc-text">更换主题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E9%A2%98%E6%A0%B7%E5%BC%8F"><span class="toc-text">主题样式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%B4%E5%83%8F"><span class="toc-text">头像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RSS"><span class="toc-text">RSS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="toc-text">代码块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%85%E8%AF%BB%E8%BF%9B%E5%BA%A6"><span class="toc-text">阅读进度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B9%A6%E7%AD%BE"><span class="toc-text">书签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#github-banner"><span class="toc-text">github_banner</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%84%E8%AE%BA"><span class="toc-text">评论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E5%88%B7%E6%96%B0%E5%8A%A0%E8%BD%BD"><span class="toc-text">无刷新加载</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E7%AB%A0"><span class="toc-text">文章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE%E9%A1%B5"><span class="toc-text">标签页</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E9%A1%B5"><span class="toc-text">搜索页</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#404%E9%A1%B5%E9%9D%A2"><span class="toc-text">404页面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E8%84%9A%E6%9C%AC"><span class="toc-text">部署脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D"><span class="toc-text">自定义域名</span></a></li></ol>
+    </div>
+
+
+<article class="post post__with-toc content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <p><strong>前言：</strong> 想弄个博客网站，就会联想到不得有台服务器吗？不得搞数据库吗？不得注册域名吗？没事，如果都没有，那照样是能搭建一个博客的。这里就要记录如何使用<strong>GitHub</strong>来建属于自己的博客。</p>
+<h2 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h2><h3 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h3><p>下载地址：<a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/download/">https://nodejs.org/zh-cn/download/</a> 可以安装 Stable 版本。安装完毕之后，确保环境变量配置好，能正常使用 <code>npm</code> 命令</p>
+<h3 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h3><p>Hexo是一个博客框架，Hexo 官方还提供了一个命令行工具，用于快速创建项目、页面、编译、部署 Hexo 博客，所以在这之前我们需要先安装 Hexo 的命令行工具。</p>
+<p>安装命令<code>npm install -g hexo-cli</code></p>
+<p>安装完毕后可以输入<code>hexo -v</code>查看是否有版本号，确保环境变量配置好，能正常使用 <code>hexo</code> 命令</p>
+<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><ol>
+<li>我们使用 Hexo 的命令行创建一个项目，首先使用新建一个文件夹，改为你需要的名字（建议纯英文），打开命令行输入下面命令：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init &#123;name&#125; //name是你的项目名</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b95d67b1c038406d8d1ebf7ee71677ca~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b95d67b1c038406d8d1ebf7ee71677ca~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<p>看到终端输出这样就完成了，文件夹下就会出现 Hexo 的初始化文件，包括 themes、scaffolds、source 等文件夹，这些内容暂且先不用管是做什么的，我们先知道有什么，然后一步步走下去看看都发生了什么变化</p>
+<ol start="2">
+<li>进入新生成的文件夹里面，然后调用 Hexo 的 generate 命令，将 Hexo 编译生成 HTML 代码，运行<code>hexo generate</code>命令后，可以看到输出结果里面包含了 js、css、font 等内容，并发现他们都处在了项目根目录下的 public 文件夹下面了</li>
+<li>我们利用 Hexo 提供的 server 命令把博客在本地运行起来<code>hexo server</code>，运行之后命令行输出如下</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INFO  Start processing</span><br><span class="line">INFO  Hexo is running at http://localhost:4000 . Press Ctrl+C to stop.</span><br></pre></td></tr></table></figure>
+<p>点开本地 4000 端口上就可以查看博客站点了，如图所示：</p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8f824dfd20594266bcc4fdd86b69a847~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8f824dfd20594266bcc4fdd86b69a847~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<p>到这里就已经把静态博客的架子已经搭建出来了</p>
+<h2 id="开始部署"><a href="#开始部署" class="headerlink" title="开始部署"></a>开始部署</h2><p>接下来我们把这个博客架子放到<strong>GitHub Pages</strong>上面看是否能成功，成功之后我们可以再进行博客样式</p>
+<ol>
+<li>在部署之前我们需要先知道博客的部署地址，它需要对应 GitHub 的一个项目地址，首先在 GitHub 新建一个仓库，名称为 {username}.github.io，注意这个名比较特殊，必须要是 github.io 为后缀结尾的</li>
+</ol>
+<p>建成后打开项目文件根目录下的 _config.yml 文件，找到 Deployment 这个地方，把刚才新建的 Repository 的地址贴过来，然后指定分支为 master 分支，最终修改为如下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Deployment## Docs: https://hexo.io/docs/deployment.html</span><br><span class="line">deploy:  </span><br><span class="line">    type: git  </span><br><span class="line">    repo: &#123;git repo ssh address&#125;  </span><br><span class="line">    branch: master</span><br></pre></td></tr></table></figure>
+<p>修改完后还需要额外安装一个支持 Git 的部署插件，名字叫做 hexo-deployer-git，有了它我们才可以顺利将其部署到 GitHub 上面，安装命令<code>npm install hexo-deployer-git --save</code>，安装完后就可以继续我们的部署</p>
+<ul>
+<li>  部署命令还是使用我们的<strong>hexo</strong>命令输出<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+运行到这步踩坑，没有在GitHub配置了ssh的话会让你输入，不然会一直运行失败，在GitHub配置好ssh就可以上传成功了。不会ssh配置可以<a target="_blank" rel="noopener" href="https://juejin.cn/post/6981432302991573028">点击教程</a><br>成功后可以看到GitHub上传了什么</li>
+</ul>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/66df853970d146439719d75b3653b04c~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/66df853970d146439719d75b3653b04c~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<p>完成上面就可以实现自己的博客了，但是还没有配置好自己喜欢的主题和标题，hexo是支持修改站名和描述等等。<br>修改根目录下的 _config.yml 文件，找到 Site 区域，这里面可以配置站点标题 title、副标题 subtitle 等内容、关键字 keywords 等内容，比如我的就修改为如下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># Site</span><br><span class="line">title: 白墙博客</span><br><span class="line">subtitle: &#x27;一面白墙正在绘画&#x27;</span><br><span class="line">description: &#x27;主要编程为JavaScript、TypeScript、vue3.x&#x27;</span><br><span class="line">keywords: &#x27;JavaScript,TypeScript，vue3.x，Es系列，Css系列&#x27;</span><br><span class="line">author: 白墙</span><br><span class="line">language: zh-CN</span><br><span class="line">timezone: &#x27;&#x27;</span><br></pre></td></tr></table></figure>
+<p>这样就完成了站点基本信息的配置，完成之后可以看到一些基本信息就修改过来了，页面效果如下：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1dc6c502a74349cd9e36c3d4cd6a21fd~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1dc6c502a74349cd9e36c3d4cd6a21fd~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<h2 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h2><p>GitHub上有很多主题都可以拉取下拉使用更改，目前 Hexo 里面应用最多的主题基本就是 Next 主题了，它支持的插件和功能也极为丰富，配置了这个主题，我们的博客可以支持更多的扩展功能，比如阅览进度条、中英文空格排版、图片懒加载等等。<br>主题的 GitHub 地址是：<a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next%EF%BC%8C%E6%88%91%E4%BB%AC%E5%8F%AF%E4%BB%A5%E7%9B%B4%E6%8E%A5%E6%8A%8A">https://github.com/theme-next/hexo-theme-next，我们可以直接把</a> master 分支 Clone 下来。<br>进入项目的根目录打开终端，运行下面命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/theme-next/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">github.com/theme-next/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
+
+<p>执行完毕之后 Next 主题的源码就会出现在项目的 themes/next 文件夹下。</p>
+<p>然后我们需要修改下博客所用的主题名称，修改项目根目录下的 _config.yml 文件，找到 theme 字段，修改为 next 即可</p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/976469bb59ca4e96a0e36c2265320ef7~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/976469bb59ca4e96a0e36c2265320ef7~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<p>然后本地重新开启服务，访问刷新下页面，就可以看到 next 主题就切换成功了，预览效果如下：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/10345abcc3654d60a8cb87096ec78c09~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/10345abcc3654d60a8cb87096ec78c09~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<h3 id="主题样式"><a href="#主题样式" class="headerlink" title="主题样式"></a>主题样式</h3><p>next提供很多样式，风格不变，但整个布局位置不太一样，通过修改scheme字段即可，注意是next文件下的<code>_config.yml</code></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/354013e44be745639d74ad3fc0a90817~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/354013e44be745639d74ad3fc0a90817~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<p>刷新页面之后就会变成这种布局<br><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fb6276f4231f44149f4efc5848744d42~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fb6276f4231f44149f4efc5848744d42~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<h3 id="头像"><a href="#头像" class="headerlink" title="头像"></a>头像</h3><p>avatar 这个就类似站点的头像，如果设置了这个，会在站点的作者信息旁边额外显示一个头像。红色箭头指向</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9fb2b645f57e459c957e9fa0f31790a9~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9fb2b645f57e459c957e9fa0f31790a9~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<p>把需要的图片放置themes/next/source/images/avatar.png 路径，然后在<code>_config.yml</code>文件下更改avatar配置，url位置上更改正确的路径</p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4a538a7990104a169b322027dd93b15a~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4a538a7990104a169b322027dd93b15a~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<p>还有另外两个配置，rounded是配置是否为圆形，rotated鼠标移动过去是否可旋转</p>
+<h3 id="RSS"><a href="#RSS" class="headerlink" title="RSS"></a>RSS</h3><p>RSS订阅是站点用来和其他站点之间共享内容的一种简易方式(也叫<a target="_blank" rel="noopener" href="https://baike.sogou.com/lemma/ShowInnerLink.htm?lemmaId=40646&ss_c=ssc.citiao.link">聚合内容</a>)，即Really Simple Syndication(<a target="_blank" rel="noopener" href="https://baike.sogou.com/lemma/ShowInnerLink.htm?lemmaId=40646&ss_c=ssc.citiao.link">简易信息聚合</a>)。通常被用于新闻和其他按顺序排列的网站。<br>博客一般是需要 RSS 订阅的，如果要开启 RSS 订阅，这里需要安装一个插件，叫做 hexo-generator-feed，安装完成之后，站点会自动生成 RSS Feed 文件，安装命令<code>npm install hexo-generator-feed --save</code>，安装完成之后不需要其他的配置，以后每次编译生成站点的时候就会自动生成 RSS Feed 文件了</p>
+<h3 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h3><p>博客写技术文必定出现的代码块，next也可以配置修改，修改 <code>_config.yml</code> 文件的 <code>codeblock</code> 区块如下</p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c1cddbd9c19c4f9cbf1b30aa89ba40cc~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c1cddbd9c19c4f9cbf1b30aa89ba40cc~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<p>设置完如下：<br><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e1d8f5c99abc4d7cabfdfcaa0b640dba~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e1d8f5c99abc4d7cabfdfcaa0b640dba~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<h3 id="阅读进度"><a href="#阅读进度" class="headerlink" title="阅读进度"></a>阅读进度</h3><p>reading_process，阅读进度。大家可能注意到有些站点的最上侧会出现一个细细的进度条，代表页面加载进度和阅读进度，修改 _config.yml 如下：</p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3d139d45378e4f68880e64cf0d9566a4~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3d139d45378e4f68880e64cf0d9566a4~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<p>设置完如下：<br><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/497cb85022214b599f7cceb492cd7ec7~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/497cb85022214b599f7cceb492cd7ec7~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<h3 id="书签"><a href="#书签" class="headerlink" title="书签"></a>书签</h3><p>bookmark，书签，可以根据阅读历史记录，在下次打开页面的时候快速帮助我们定位到上次的位置，大家可以根据喜好开启和关闭</p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/933c0a9ce0724d6f9382f9edd71f5255~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/933c0a9ce0724d6f9382f9edd71f5255~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<h3 id="github-banner"><a href="#github-banner" class="headerlink" title="github_banner"></a>github_banner</h3><p>在一些技术博客上，大家可能注意到在页面的右上角有个 GitHub 图标，点击之后可以跳转到其源码页面，可以为 GitHub Repository 引流，permalink设为自己的GitHub链接，title是鼠标滑动过去显示的标题</p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5946b3b0faac4695ac6a37687d7184bd~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5946b3b0faac4695ac6a37687d7184bd~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<h3 id="评论"><a href="#评论" class="headerlink" title="评论"></a>评论</h3><p>由于 Hexo 的博客是静态博客，而且也没有连接数据库的功能，所以它的评论功能是不能自行集成的，但可以集成第三方的服务。Next 主题里面提供了多种评论插件的集成，有 changyan | disqus | disqusjs | facebook_comments_plugin | gitalk | livere | valine | vkontakte 这些。这里使用gitalk。它是利用 GitHub 的 Issue 来当评论，样式也比较不错。<br>首先需要在 GitHub 上面注册一个 OAuth Application，链接为：<a target="_blank" rel="noopener" href="https://github.com/settings/applications/new%EF%BC%8C%E6%B3%A8%E5%86%8C%E5%AE%8C%E6%AF%95%E4%B9%8B%E5%90%8E%E6%8B%BF%E5%88%B0">https://github.com/settings/applications/new，注册完毕之后拿到</a> Client ID、Client Secret 就可以了。</p>
+<p>首先需要在 _config.yml 文件的 comments 区域配置使用 gitalk</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># Multiple Comment System Support</span><br><span class="line">comments:  </span><br><span class="line">    # Available values: tabs | buttons  </span><br><span class="line">    style: tabs  </span><br><span class="line">    # Choose a comment system to be displayed by default.  </span><br><span class="line">    # Available values: changyan | disqus | disqusjs | facebook_comments_plugin | gitalk | livere | valine | vkontakte  </span><br><span class="line">    active: gitalk</span><br></pre></td></tr></table></figure>
+<p>然后找到 gitalk 配置，添加它的各项配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># Gitalk</span><br><span class="line"># For more information: https://gitalk.github.io, https://github.com/gitalk/gitalk</span><br><span class="line">gitalk:</span><br><span class="line">  enable: true</span><br><span class="line">  github_id: white-wall</span><br><span class="line">  repo: white-wall.github.io # Repository name to store issues</span><br><span class="line">  client_id: &#123;your client id&#125; # GitHub Application Client ID</span><br><span class="line">  client_secret: &#123;your client secret&#125; # GitHub Application Client Secret</span><br><span class="line">  admin_user: white-wall # GitHub repo owner and collaborators, only these guys can initialize gitHub issues</span><br><span class="line">  distraction_free_mode: true # Facebook-like distraction free mode</span><br><span class="line">  # Gitalk&#x27;s display language depends on user&#x27;s browser or system environment</span><br><span class="line">  # If you want everyone visiting your site to see a uniform language, you can set a force language value</span><br><span class="line">  # Available values: en | es-ES | fr | ru | zh-CN | zh-TW</span><br><span class="line">  language: zh-CN</span><br></pre></td></tr></table></figure>
+<p>添加上面配置后刷新后就会出现这样的样式</p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9561e98e3e344c0e82782333555f3f94~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9561e98e3e344c0e82782333555f3f94~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<h3 id="无刷新加载"><a href="#无刷新加载" class="headerlink" title="无刷新加载"></a>无刷新加载</h3><p>可能大家听说过 Ajax，没听说过 pjax，这个技术实际上就是利用 Ajax 技术实现了局部页面刷新，既可以实现 URL 的更换，又可以做到无刷新加载。</p>
+<p>要开启这个功能需要先将 pjax 功能开启，然后安装对应的 pjax 依赖库，首先修改 _config.yml 修改<code>pjax: true</code></p>
+<p>切换到 next 主题文件下，然后安装依赖库：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd themes/next</span><br><span class="line">$ git clone https://github.com/theme-next/theme-next-pjax source/lib/pjax</span><br></pre></td></tr></table></figure>
+
+<p>更多主题修改等配置可在<a target="_blank" rel="noopener" href="https://hexo.io/docs/">https://hexo.io/docs/</a> 官网查看</p>
+<h2 id="文章"><a href="#文章" class="headerlink" title="文章"></a>文章</h2><p>一开始生成后细心的hexo已经给出这行命令了</p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2a9c9b0c940244cab46c9ce4ec3a39c0~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2a9c9b0c940244cab46c9ce4ec3a39c0~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"><br><code>hexo new hello-hexo</code>运行这行命令就会出现在 <code>source/_posts</code> 文件夹下，是 MarkDown 格式。<br>在文章开头通过如下格式添加必要信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标题 # 自动创建，如 hello-worlddate: </span><br><span class="line">日期 # 自动创建，如 2019-09-22 01:47:21</span><br><span class="line">tags: </span><br><span class="line">    - 标签1</span><br><span class="line">    - 标签2</span><br><span class="line">    - 标签3</span><br><span class="line">categories:</span><br><span class="line">    - 分类1</span><br><span class="line">    - 分类2</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>开头下方撰写正文，MarkDown 格式书写即可。</p>
+<p>这样在下次编译的时候就会自动识别标题、时间、类别等等，另外还有其他的一些参数设置，可以参考文档：<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/writing.html%E3%80%82">https://hexo.io/zh-cn/docs/writing.html。</a></p>
+<h2 id="标签页"><a href="#标签页" class="headerlink" title="标签页"></a>标签页</h2><p>跟新建文章一样，在目录下输入<code>hexo new page tags</code>执行这个命令之后会自动帮我们生成一个 source/tags/index.md 文件，也是MarkDown格式的。我们可以在tags文件内我们可以自行添加一个 type 字段来指定页面的类型，如图所示：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d07dbdad022e4895aada8e13b555b37a~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d07dbdad022e4895aada8e13b555b37a~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<p>在刚刚新建的文章文件中设置，如图所示：</p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c1183c2f021b41bd9be5c1b343223c39~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c1183c2f021b41bd9be5c1b343223c39~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<p>设置完在主题的 _config.yml 文件将这个页面的链接添加到主菜单里面，修改 <code>menu</code> 把tags<code>#</code>去掉就可以达到打开标签页的效果，然后就可以到页面查看效果</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7ad77127849c42fd981d1127da130c70~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7ad77127849c42fd981d1127da130c70~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<h2 id="搜索页"><a href="#搜索页" class="headerlink" title="搜索页"></a>搜索页</h2><p>添加搜索功能，需要先安装一个插件，叫做 hexo-generator-searchdb，命令如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-searchdb --save</span><br></pre></td></tr></table></figure>
+<p>然后在项目的 _config.yml 里面添加搜索设置如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">search:  </span><br><span class="line">    path: search.xml  </span><br><span class="line">    field: post  </span><br><span class="line">    format: html  </span><br><span class="line">    limit: 10000</span><br></pre></td></tr></table></figure>
+<p>然后在主题的 _config.yml 里面修改如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># Local search</span><br><span class="line"># Dependencies: https://github.com/wzpan/hexo-generator-search</span><br><span class="line">local_search:  </span><br><span class="line">    enable: true </span><br><span class="line">    # If auto, trigger search by changing input. </span><br><span class="line">    # If manual, trigger search by pressing enter key or search button.  </span><br><span class="line">    trigger: auto </span><br><span class="line">    # Show top n results per article, show all results by setting to -1  top_n_per_article: 5 </span><br><span class="line">    # Unescape html strings to the readable one.  </span><br><span class="line">    unescape: false </span><br><span class="line">    # Preload the search data when the page loads.  </span><br><span class="line">    preload: false</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f0c4cf4e840e4632970da12abdcac0e0~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f0c4cf4e840e4632970da12abdcac0e0~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<h2 id="404页面"><a href="#404页面" class="headerlink" title="404页面"></a>404页面</h2><p>页面都需要有个404状态页面，博客也不例外，直接在根目录 source 文件夹新建一个 404.md 文件即可，内容可以仿照如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 404 Not Found</span><br><span class="line">date: 2021-09-20 10:41:27</span><br><span class="line">---</span><br><span class="line">&lt;center&gt;</span><br><span class="line">对不起，您所访问的页面不存在或者已删除。</span><br><span class="line">您可以&lt;a href=&quot;https://blog.white-wall.cn&quot;&gt;点击此处&lt;/a&gt;返回首页。</span><br><span class="line">&lt;/center&gt;</span><br><span class="line"></span><br><span class="line">&lt;blockquote class=&quot;blockquote-center&quot;&gt;</span><br><span class="line">    whiteWall</span><br><span class="line">&lt;/blockquote&gt;</span><br></pre></td></tr></table></figure>
+<p>新建完也要在主题_config.yml中打开404的<code>#</code></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1ec93034f57f416f9d8bde68e826235f~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1ec93034f57f416f9d8bde68e826235f~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"></p>
+<h2 id="部署脚本"><a href="#部署脚本" class="headerlink" title="部署脚本"></a>部署脚本</h2><p>其实方便后面一行代码就可以直接完成博客更新来配置，在根目录下新建一个 deploy.sh 的脚本文件，内容如下：</p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/99669318d38949878b58893ecbcd509c~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/99669318d38949878b58893ecbcd509c~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"><br>这样我们在部署发布的时候只需要执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh deploy.sh</span><br></pre></td></tr></table></figure>
+<h2 id="自定义域名"><a href="#自定义域名" class="headerlink" title="自定义域名"></a>自定义域名</h2><p>GitHub还支持自定义域名的设置,在github项目 <code>setting</code>滑到看到page，设置完就可以看到这样提示</p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6431043265a94e75b5ebd1cf696020c7~tplv-k3u1fbpfcp-watermark.image" class="lazy" data-srcset="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6431043265a94e75b5ebd1cf696020c7~tplv-k3u1fbpfcp-watermark.image" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="image.png"><br>有一个值得注意的地方，如果配置了自定义域名，在目前的情况下，每次部署的时候这个自定义域名的设置是会被自动清除的。所以为了避免这个情况，我们需要在项目目录下面新建一个 CNAME 文件，路径为 source/CNAME，内容就是自定义域名。</p>
+<p>比如我就在 source 目录下新建了一个 CNAME 文件，内容为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blog.white-wall.cn</span><br></pre></td></tr></table></figure>
+<p>##tips:## 配置自定义域名，需要自行购买有效的域名才可配置，否则会打不开</p>
+
+    </div>
+     
+    <div class="post-footer__meta"><p>更新于 2024-05-20</p></div> 
+    <div class="post-entry__tags"><a href="/tags/GitHub/" class="post-tags__link button"># GitHub</a></div> 
+</article>
+
+
+    <div class="nav">
+        <div class="nav__prev">
+            
+                <a href="/2024/05/20/fiddler/" class="nav__link">
+                    <div>
+                        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M589.088 790.624L310.464 512l278.624-278.624 45.248 45.248L400.96 512l233.376 233.376z" fill="#808080"></path></svg>
+                    </div>
+                    <div>
+                        <div class="nav__label">
+                            Previous Post
+                        </div>
+                        <div class="nav__title">
+                            Fiddler替换域名
+                        </div>
+                    </div>
+                </a>
+            
+        </div>
+        <div class="nav__next">
+            
+                <a href="/2024/05/20/base/" class="nav__link">
+                    <div>
+                        <div class="nav__label">
+                            Next Post
+                        </div>
+                        <div class="nav__title">
+                            温故而知新（巩固js基础第一篇）
+                        </div>
+                    </div>
+                    <div>
+                        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M434.944 790.624l-45.248-45.248L623.04 512l-233.376-233.376 45.248-45.248L713.568 512z" fill="#808080"></path></svg>
+                    </div>
+                </a>
+            
+        </div>
+    </div>
+
+
+
+    <div class="post__comments post__with-toc content-card" id="comment">
+        
+    <h4>评论</h4>
+    
+    
+    
+    
+    
+    <div id="gitalk-container"></div>
+
+    
+    
+    
+    
+    
+    
+
+
+    </div>
+
+
+
+</main>
+
+            <footer class="footer">
+     
+    <a href="#" class="button" id="b2t" aria-label="回到顶部" title="回到顶部">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2024 <a href="/">白墙博客</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+        
+    <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+    <script>
+        window.lazyLoadOptions = {
+            elements_selector: ".lazy",
+            threshold: 0
+        };
+    </script>
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+ 
+
+
+
+ 
+
+
+    
+ 
+
+
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.4.1/dist/jquery.fancybox.min.css">
+
+    
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.4.1/dist/jquery.fancybox.min.js"></script>
+
+    <script>
+        let lazyloadT = Boolean('true'),
+            auto_fancybox = Boolean('false')
+        if (auto_fancybox) {
+            $(".post__content").find('img').each(function () {
+                var element = document.createElement("a");
+                $(element).attr("data-fancybox", "gallery");
+                $(element).attr("href", $(this).attr("src"));
+                if (lazyloadT) {
+                    $(element).attr("href", $(this).attr("data-srcset"));
+                }
+                $(this).wrap(element);
+            });
+        } else {
+            $(".post__content").find("fancybox").find('img').each(function () {
+                var element = document.createElement("a");
+                $(element).attr("data-fancybox", "gallery");
+                $(element).attr("href", $(this).attr("src"));
+                if (lazyloadT) {
+                    $(element).attr("href", $(this).attr("data-srcset"));
+                }
+                $(this).wrap(element);
+            });
+        }
+    </script>
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+    
+
+    
+    
+    
+
+    
+    
+    
+    <script>
+        function loadComment() {
+            let e, i;
+            (e = document.createElement("script")).src = 'https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js',
+            document.body.appendChild(e);
+            e.onload = () => {
+                var gitalk = new Gitalk({
+                    clientID: 'ceae62bea2bc1e8997ef',
+                    clientSecret: '177720ba49d909975531c3534f0e7c2ba1d6c1a3',
+                    repo: 'white-wall',
+                    owner: 'blank-wall',
+                    admin: 'blank-wall',
+                    id: window.location.pathname,
+                    distractionFreeMode: false
+                });
+                gitalk.render('gitalk-container');
+            };
+            (i = document.createElement("link")).rel = "stylesheet",
+            i.href = 'https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css',
+            document.head.appendChild(i);
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+
+
+
+    </body>
+</html>

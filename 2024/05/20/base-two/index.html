@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+        <link rel="shortcut icon" href="/images/favicon-16x16.ico">
+    
+    
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+    
+    
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+    
+    
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-128x128.png">
+    
+    
+
+
+    <!-- meta -->
+
+
+<title>温故而知新（巩固js基础第二篇） | 白墙博客</title>
+
+
+    <meta name="keywords" content="JavaScript, JavaScript,TypeScript，vue3.x，Es系列，Css系列">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="判断：if与三元在第一篇讲到了各种运算符，这里的三元运算符不同于算术运算上，所以没有写在同一篇。 if else语句常见的判断语句为if else，if(...) 语句计算括号里的条件表达式，如果计算结果是 true，就会执行对应的代码块。栗子： 123456let test &#x3D; trueif(test) &amp;#123;    alert(&amp;#x27;进来了！&amp;#x27;);&amp;#125;&#x2F;&#x2F; 当代码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="温故而知新（巩固js基础第二篇）">
+<meta property="og:url" content="http://example.com/2024/05/20/base-two/index.html">
+<meta property="og:site_name" content="白墙博客">
+<meta property="og:description" content="判断：if与三元在第一篇讲到了各种运算符，这里的三元运算符不同于算术运算上，所以没有写在同一篇。 if else语句常见的判断语句为if else，if(...) 语句计算括号里的条件表达式，如果计算结果是 true，就会执行对应的代码块。栗子： 123456let test &#x3D; trueif(test) &amp;#123;    alert(&amp;#x27;进来了！&amp;#x27;);&amp;#125;&#x2F;&#x2F; 当代码">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-05-20T06:15:46.541Z">
+<meta property="article:modified_time" content="2024-05-20T06:15:46.541Z">
+<meta property="article:author" content="白墙">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary_large_image">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="/css/highlight/default.css" media="none" >
+        
+            <link rel="stylesheet" id="hl-dark-theme" href="/css/highlight/dark.css" media="none">
+        
+    
+
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/style/dark.css">
+
+    
+<script src="/js/darkmode.js"></script>
+
+
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="白墙博客" type="application/atom+xml">
+</head>
+
+    <body>
+        <div id="app">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">白墙博客</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/" class="navbar-menu button">首页</a>
+                
+                    <a href="/tags/" class="navbar-menu button">标签</a>
+                
+                    <a href="/archives/" class="navbar-menu button">归档</a>
+                
+                    <a target="_blank" rel="noopener" href="https://github.com/blank-wall" class="navbar-menu button">GitHub</a>
+                
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/user/3500480279359166" class="navbar-menu button">掘金</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+    <a href="javaScript:void(0);" id="btn-toggle-dark">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/" class="dropdown-menu button">首页</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">标签</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">归档</a>
+                
+                    <a target="_blank" rel="noopener" href="https://github.com/blank-wall" class="dropdown-menu button">GitHub</a>
+                
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/user/3500480279359166" class="dropdown-menu button">掘金</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        温故而知新（巩固js基础第二篇）
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2024/05/" class="post-meta__date button">2024-05-20</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%EF%BC%9Aif%E4%B8%8E%E4%B8%89%E5%85%83"><span class="toc-text">判断：if与三元</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#if-else%E8%AF%AD%E5%8F%A5"><span class="toc-text">if else语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-text">类型转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E5%85%83%E8%BF%90%E7%AE%97%E7%AC%A6%EF%BC%88%E6%9D%A1%E4%BB%B6%E8%BF%90%E7%AE%97%E7%AC%A6%EF%BC%89%E2%80%98-%E2%80%99"><span class="toc-text">三元运算符（条件运算符）‘?’</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">逻辑运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E6%88%96%EF%BC%89"><span class="toc-text">|| （或）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#amp-amp-%EF%BC%88%E4%B8%8E%EF%BC%89"><span class="toc-text">&amp;&amp;（与）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E9%9D%9E%EF%BC%89"><span class="toc-text">!（非）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E9%9D%9E%E7%A9%BA%E8%BF%90%E7%AE%97%E7%AC%A6%EF%BC%89"><span class="toc-text">??（非空运算符）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#for%E5%92%8Cwhile"><span class="toc-text">for和while</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#while-%E5%BE%AA%E7%8E%AF"><span class="toc-text">while 循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#for%E5%BE%AA%E7%8E%AF"><span class="toc-text">for循环</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9C%81%E7%95%A5%E8%AF%AD%E5%8F%A5"><span class="toc-text">省略语句</span></a></li></ol></li></ol></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">文章目录</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%EF%BC%9Aif%E4%B8%8E%E4%B8%89%E5%85%83"><span class="toc-text">判断：if与三元</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#if-else%E8%AF%AD%E5%8F%A5"><span class="toc-text">if else语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-text">类型转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E5%85%83%E8%BF%90%E7%AE%97%E7%AC%A6%EF%BC%88%E6%9D%A1%E4%BB%B6%E8%BF%90%E7%AE%97%E7%AC%A6%EF%BC%89%E2%80%98-%E2%80%99"><span class="toc-text">三元运算符（条件运算符）‘?’</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">逻辑运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E6%88%96%EF%BC%89"><span class="toc-text">|| （或）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#amp-amp-%EF%BC%88%E4%B8%8E%EF%BC%89"><span class="toc-text">&amp;&amp;（与）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E9%9D%9E%EF%BC%89"><span class="toc-text">!（非）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E9%9D%9E%E7%A9%BA%E8%BF%90%E7%AE%97%E7%AC%A6%EF%BC%89"><span class="toc-text">??（非空运算符）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#for%E5%92%8Cwhile"><span class="toc-text">for和while</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#while-%E5%BE%AA%E7%8E%AF"><span class="toc-text">while 循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#for%E5%BE%AA%E7%8E%AF"><span class="toc-text">for循环</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9C%81%E7%95%A5%E8%AF%AD%E5%8F%A5"><span class="toc-text">省略语句</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+
+<article class="post post__with-toc content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <h2 id="判断：if与三元"><a href="#判断：if与三元" class="headerlink" title="判断：if与三元"></a>判断：if与三元</h2><p>在第一篇讲到了各种运算符，这里的<code>三元运算符</code>不同于算术运算上，所以没有写在同一篇。</p>
+<h3 id="if-else语句"><a href="#if-else语句" class="headerlink" title="if else语句"></a>if else语句</h3><p>常见的判断语句为<code>if else</code>，<code>if(...)</code> 语句计算括号里的条件表达式，如果计算结果是 <code>true</code>，就会执行对应的代码块。栗子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let test = true</span><br><span class="line">if(test) &#123;</span><br><span class="line">    alert(&#x27;进来了！&#x27;);</span><br><span class="line">&#125;</span><br><span class="line">// 当代码块只有一条语句的时候，那么可以简写成：</span><br><span class="line">if(test) alert(&#x27;进来了！&#x27;);</span><br></pre></td></tr></table></figure>
+<p><code>if</code> 语句有时会包含一个可选的 “else” 块。如果判断条件不成立，就会执行它内部的代码。栗子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">当有else就不支持简写</span><br><span class="line">let test = true</span><br><span class="line">if(test) &#123;</span><br><span class="line">    alert(&#x27;进来了！&#x27;);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    alert(&#x27;进了另外个门&#x27;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还有时我们需要测试一个条件的几个变体。我们可以通过使用 <code>else if</code> 子句实现。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let test = true</span><br><span class="line">if(test) &#123;</span><br><span class="line">    alert(&#x27;进来了！&#x27;);</span><br><span class="line">&#125; else if &#123;</span><br><span class="line">    alert(&#x27;进了第二扇门&#x27;);</span><br><span class="line">&#125;else &#123;</span><br><span class="line">    alert(&#x27;进了第三扇门&#x27;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上的代码块都是从上到下，严格按照js的同步进行，先判断<code>if</code>是否为<code>true</code>，如果不是才会进行下一个语句判断，依次往下。当然可以有更多的 <code>else if</code> 块。结尾的 <code>else</code> 是可选的。</p>
+<h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><p><code>if (…)</code> 语句会计算圆括号内的表达式，并将计算结果转换为布尔型</p>
+<ul>
+<li>  数字 <code>0</code>、空字符串 <code>&quot;&quot;</code>、<code>null</code>、<code>undefined</code> 和 <code>NaN</code> 都会被转换成 <code>false</code>。因为它们被称为“假值（falsy）”值。</li>
+<li>  其他值被转换为 <code>true</code>，所以它们被称为“真值（truthy）”。<h3 id="三元运算符（条件运算符）‘-’"><a href="#三元运算符（条件运算符）‘-’" class="headerlink" title="三元运算符（条件运算符）‘?’"></a>三元运算符（条件运算符）‘?’</h3>我们需要根据一个条件去赋值一个变量就会想到使用刚刚才讲到的<code>if else</code>，但又感觉只是赋个值写代码块没必要。所谓的三元运算符让我们可以更简短地达到目的。之所以被称为“三元”是因为该运算符中有三个操作数。实际上它是 JavaScript 中唯一一个有这么多操作数的运算符。如何使用？栗子：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let result = condition ? value1 : value2;</span><br><span class="line">// 计算条件结果，如果结果为真，则返回 `value1`，否则返回 `value2`。</span><br></pre></td></tr></table></figure>
+<p>当如果三元运算符用来判断返回<code>boolean</code>的话，可以不需要用到三元运算符。栗子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let result = age &gt; 18 ? true : false; </span><br><span class="line">// 与</span><br><span class="line">let result = age &gt; 18</span><br><span class="line">// 是一样的</span><br></pre></td></tr></table></figure>
+<p>还可以嵌套多个三元运算符，但只可以返回一个取决于多个条件的值。栗子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let message = (age &lt; 3) ? &#x27;我不到三岁&#x27; : (age &lt; 18) </span><br><span class="line">?&#x27;我不到18岁&#x27; : (age &lt; 100) </span><br><span class="line">?&#x27;我不到100岁&#x27; : &#x27;剩下就是我的岁数&#x27;;</span><br></pre></td></tr></table></figure>
+<p>可能很难一下子看出发生了什么。就很影响了可读性。</p>
+<ol>
+<li> 第一个问号检查 <code>age &lt; 3</code>。</li>
+<li> 如果为真 — 返回 <code>&#39;我不到三岁&#39;</code>。否则，会继续执行冒号 <code>&quot;:&quot;</code> 后的表达式，检查 <code>age &lt; 18</code>。</li>
+<li> 如果为真 — 返回 <code>&#39;我不到18岁&#39;</code>。否则，会继续执行下一个冒号 <code>&quot;:&quot;</code> 后的表达式，检查 <code>age &lt; 100</code>。</li>
+<li> 如果为真 — 返回 <code>&#39;我不到100岁&#39;</code>。否则，会继续执行最后一个冒号 <code>&quot;:&quot;</code> 后面的表达式，返回 <code>&#39;剩下就是我的岁数&#39;</code>。<br>有时候使用三元运算符是为了简便，但多了话就会很复杂，<strong>不建议这样使用三元运算符。</strong></li>
+</ol>
+<p><strong>tips：</strong> 建议每次使用 if 语句都用大括号 <code>&#123;&#125;</code> 来包装代码块，即使只有一条语句。这样可以提高代码可读性。</p>
+<h2 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h2><p>js中有三个常用的逻辑运算符：<code>||</code>（或），<code>&amp;&amp;</code>（与），<code>!</code>（非）。还有新增的非空运算符：<code>??</code></p>
+<p>虽然它们被称为“逻辑”运算符，但这些运算符却可以被应用于任意类型的值，而不仅仅是布尔值。它们的结果也同样可以是任意类型。</p>
+<h3 id="（或）"><a href="#（或）" class="headerlink" title="|| （或）"></a>|| （或）</h3><p>一个或运算 <code>||</code> 的链，将返回第一个真值，如果不存在真值，就返回该链的最后一个值。下面栗子将解释这段话。</p>
+<p>两个竖线符号表示<code>||</code>“或”运算符：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = a || b;</span><br></pre></td></tr></table></figure>
+<p>用作于判断使用的话，有四种逻辑情况</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">alert( true || true ); // true </span><br><span class="line">alert( false || true ); // true</span><br><span class="line">alert( true || false ); // true</span><br><span class="line">alert( false || false ); // false</span><br></pre></td></tr></table></figure>
+<p>用于表达式或者变量列表使用的话</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let firstName = &quot;&quot;; // 假值</span><br><span class="line">let lastName = &quot;&quot;; // 假值</span><br><span class="line">let nickName = &quot;SuperCoder&quot;; // 真值</span><br><span class="line">alert( firstName || lastName || nickName || &quot;Anonymous&quot;); // SuperCoder</span><br></pre></td></tr></table></figure>
+<p>前面变量的值都为假，结果就是 <code>&quot;Anonymous&quot;</code>。</p>
+<h3 id="amp-amp-（与）"><a href="#amp-amp-（与）" class="headerlink" title="&amp;&amp;（与）"></a>&amp;&amp;（与）</h3><p>与运算返回第一个假值，如果没有假值就返回最后一个值。上面的规则和或运算很像。区别就是与运算返回第一个假值，而或运算返回第一个真值。</p>
+<p>两个 &amp; 符号表示 <code>&amp;&amp;</code> 与运算符：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = a &amp;&amp; b;</span><br></pre></td></tr></table></figure>
+<p>跟或运算符不一样的是，当值都为真值时才会返回true，这里也举四个栗子跟或运算符做比较：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">alert( true &amp;&amp; true ); // true</span><br><span class="line">alert( false &amp;&amp; true ); // false</span><br><span class="line">alert( true &amp;&amp; false ); // false </span><br><span class="line">alert( false &amp;&amp; false ); // false</span><br></pre></td></tr></table></figure>
+<h3 id="（非）"><a href="#（非）" class="headerlink" title="!（非）"></a>!（非）</h3><p>感叹符号 <code>!</code> 表示布尔非运算符。</p>
+<p>在第一篇的不等于（<code>!==</code>）使用过</p>
+<p>逻辑非运算符接受一个参数，并按如下运作：</p>
+<ol>
+<li> 将操作数转化为布尔类型：<code>true/false</code>。</li>
+<li> 返回相反的值。<br>有时候我们会看到有两个<code>!!</code>是用来将某个值转化为布尔类型<h3 id="（非空运算符）"><a href="#（非空运算符）" class="headerlink" title="??（非空运算符）"></a>??（非空运算符）</h3>与 （<code>||</code>） 或运算符一样,唯一不一样的仅当值为 null 或 undefined 时才当为假值，其余都为真。</li>
+</ol>
+<p>在非空运算符基础上还能简写<code>??= </code>空赋值运算符：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let x = null</span><br><span class="line">let y = 5</span><br><span class="line">alert(x ??= y) // =&gt; 5</span><br></pre></td></tr></table></figure>
+<p>拆分为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let x = null</span><br><span class="line">let y = 5</span><br><span class="line">alert(x = (x ?? y)) // =&gt; 5</span><br></pre></td></tr></table></figure>
+<p>但是出于安全原因，JavaScript 禁止将 <code>??</code> 运算符与 <code>&amp;&amp;</code> 和 <code>||</code> 运算符一起使用，除非使用括号明确指定了优先级。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let x = 1 &amp;&amp; 2 ?? 3; // Syntax error</span><br></pre></td></tr></table></figure>
+<p><strong>tips：</strong> </p>
+<ul>
+<li>优先级 <code>!</code> &gt; <code>&amp;&amp;</code> &gt; <code>||</code></li>
+<li>  <code>??</code> 运算符的优先级非常低，仅略高于 <code>?</code> 和 <code>=</code>，因此在表达式中使用它时请考虑添加括号。</li>
+<li>  如果没有明确添加括号，不能将其与 <code>||</code> 或 <code>&amp;&amp;</code> 一起使用。<h2 id="for和while"><a href="#for和while" class="headerlink" title="for和while"></a>for和while</h2></li>
+</ul>
+<p><strong>循环</strong> 是一种重复运行同一代码的方法。</p>
+<h3 id="while-循环"><a href="#while-循环" class="headerlink" title="while 循环"></a><code>while</code> 循环</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while (condition) &#123;</span><br><span class="line">// 代码 </span><br><span class="line">// 所谓的“循环体”</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当 <code>condition</code> 为真时，执行循环体的 <code>code</code>。</p>
+<p>例如，以下将循环输出当 <code>i &lt; 3</code> 时的 <code>i</code> 值：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let i = 0; </span><br><span class="line">while (i &lt; 3) &#123; // 依次显示 0、1 和 2 </span><br><span class="line">    alert( i ); </span><br><span class="line">    i++; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>循环体的单次执行叫作 <strong>一次迭代</strong>。上面示例中的循环进行了三次迭代。</p>
+<p>如果上述示例中没有 <code>i++</code>，那么循环（理论上）会永远重复执行下去，称为“死循环”。浏览器提供了阻止这种循环的方法，我们可以通过终止进程，来停掉服务器端的 JavaScript。</p>
+<p>当循环体只有一条语句，则可以省略大括号 <code>&#123;…&#125;</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let i = 3; </span><br><span class="line">while (i) alert(i--);</span><br></pre></td></tr></table></figure>
+<h3 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a><code>for</code>循环</h3><p><code>for</code> 循环更加复杂，但它是最常使用的循环形式。</p>
+<p><code>for</code> 循环看起来就像这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (begin; condition; step) &#123; </span><br><span class="line">    // ……循环体…… </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>栗子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for (let i = 0; i &lt; 3; i++) &#123;</span><br><span class="line">    // 结果为 0、1、2 </span><br><span class="line">    alert(i); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>分析 <code>for</code> 循环：<br>begin     | <code>i = 0</code>    | 进入循环时执行一次。                  |<br>| ——— | ———- | ————————— |<br>| condition | <code>i &lt; 3</code>    | 在每次循环迭代之前检查，如果为 false，停止循环。 |<br>| body（循环体） | <code>alert(i)</code> | 条件为真时，重复运行。                 |<br>| step      | <code>i++</code>      | 在每次循环体迭代后执行。</p>
+<p><code>for</code>循环算法的工作原理如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">开始运行 </span><br><span class="line">→ (如果 condition 成立 → 运行 body 然后运行 step) </span><br><span class="line">→ (如果 condition 成立 → 运行 body 然后运行 step) </span><br><span class="line">→ (如果 condition 成立 → 运行 body 然后运行 step) </span><br><span class="line">→ ...</span><br></pre></td></tr></table></figure>
+<p>把工作原理使用到栗子上：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// for (let i = 0; i &lt; 3; i++) alert(i) </span><br><span class="line"></span><br><span class="line">// 开始 </span><br><span class="line">let i = 0 </span><br><span class="line">// 如果条件为真，运行下一步 </span><br><span class="line">if (i &lt; 3) &#123; alert(i); i++ &#125; </span><br><span class="line">// 如果条件为真，运行下一步 </span><br><span class="line">if (i &lt; 3) &#123; alert(i); i++ &#125; </span><br><span class="line">// 如果条件为真，运行下一步 </span><br><span class="line">if (i &lt; 3) &#123; alert(i); i++ &#125; </span><br><span class="line">// ……结束，因为现在 </span><br><span class="line">i == 3</span><br></pre></td></tr></table></figure>
+<h4 id="省略语句"><a href="#省略语句" class="headerlink" title="省略语句"></a>省略语句</h4><p><code>for</code>条件中需要三个条件，这些如果不需要的话是可以省略掉的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let i = 0; </span><br><span class="line">// 我们已经声明了 i 并对它进行了赋值 </span><br><span class="line">for (; i &lt; 3; i++) &#123; // 不再需要 &quot;begin&quot; 语句段 </span><br><span class="line">    alert( i ); // 0, 1, 2 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>省略了<code>begin</code>参数，但 <strong>;</strong> 是一定要存在的。我们也可以移除 <code>step</code> 语句段：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let i = 0; </span><br><span class="line">for (; i &lt; 3;) &#123; </span><br><span class="line">    alert( i++ ); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样写法跟<code>while (i &lt; 3)</code> 等价。 <code>for</code> 的两个 <code>;</code> 必须存在，否则会出现语法错误。</p>
+<p><code>for</code>还有语句：</p>
+<table>
+<thead>
+<tr>
+<th><code>break</code></th>
+<th>强制退出循环</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>continue</code></td>
+<td><code>break</code> 的“轻量版”。它不会停掉整个循环。而是停止当前这一次迭代，并强制启动新一轮循环（如果条件允许的话）。</td>
+</tr>
+</tbody></table>
+
+    </div>
+     
+    <div class="post-footer__meta"><p>更新于 2024-05-20</p></div> 
+    <div class="post-entry__tags"><a href="/tags/JavaScript/" class="post-tags__link button"># JavaScript</a></div> 
+</article>
+
+
+    <div class="nav">
+        <div class="nav__prev">
+            
+                <a href="/2024/05/20/base/" class="nav__link">
+                    <div>
+                        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M589.088 790.624L310.464 512l278.624-278.624 45.248 45.248L400.96 512l233.376 233.376z" fill="#808080"></path></svg>
+                    </div>
+                    <div>
+                        <div class="nav__label">
+                            Previous Post
+                        </div>
+                        <div class="nav__title">
+                            温故而知新（巩固js基础第一篇）
+                        </div>
+                    </div>
+                </a>
+            
+        </div>
+        <div class="nav__next">
+            
+                <a href="/2021/12/03/vue3config404notFound/" class="nav__link">
+                    <div>
+                        <div class="nav__label">
+                            Next Post
+                        </div>
+                        <div class="nav__title">
+                            vue3配置404notFound
+                        </div>
+                    </div>
+                    <div>
+                        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M434.944 790.624l-45.248-45.248L623.04 512l-233.376-233.376 45.248-45.248L713.568 512z" fill="#808080"></path></svg>
+                    </div>
+                </a>
+            
+        </div>
+    </div>
+
+
+
+    <div class="post__comments post__with-toc content-card" id="comment">
+        
+    <h4>评论</h4>
+    
+    
+    
+    
+    
+    <div id="gitalk-container"></div>
+
+    
+    
+    
+    
+    
+    
+
+
+    </div>
+
+
+
+</main>
+
+            <footer class="footer">
+     
+    <a href="#" class="button" id="b2t" aria-label="回到顶部" title="回到顶部">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2024 <a href="/">白墙博客</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+        
+    <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+    <script>
+        window.lazyLoadOptions = {
+            elements_selector: ".lazy",
+            threshold: 0
+        };
+    </script>
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+ 
+
+
+
+ 
+
+
+    
+ 
+
+
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.4.1/dist/jquery.fancybox.min.css">
+
+    
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.4.1/dist/jquery.fancybox.min.js"></script>
+
+    <script>
+        let lazyloadT = Boolean('true'),
+            auto_fancybox = Boolean('false')
+        if (auto_fancybox) {
+            $(".post__content").find('img').each(function () {
+                var element = document.createElement("a");
+                $(element).attr("data-fancybox", "gallery");
+                $(element).attr("href", $(this).attr("src"));
+                if (lazyloadT) {
+                    $(element).attr("href", $(this).attr("data-srcset"));
+                }
+                $(this).wrap(element);
+            });
+        } else {
+            $(".post__content").find("fancybox").find('img').each(function () {
+                var element = document.createElement("a");
+                $(element).attr("data-fancybox", "gallery");
+                $(element).attr("href", $(this).attr("src"));
+                if (lazyloadT) {
+                    $(element).attr("href", $(this).attr("data-srcset"));
+                }
+                $(this).wrap(element);
+            });
+        }
+    </script>
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+    
+
+    
+    
+    
+
+    
+    
+    
+    <script>
+        function loadComment() {
+            let e, i;
+            (e = document.createElement("script")).src = 'https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js',
+            document.body.appendChild(e);
+            e.onload = () => {
+                var gitalk = new Gitalk({
+                    clientID: 'ceae62bea2bc1e8997ef',
+                    clientSecret: '177720ba49d909975531c3534f0e7c2ba1d6c1a3',
+                    repo: 'white-wall',
+                    owner: 'blank-wall',
+                    admin: 'blank-wall',
+                    id: window.location.pathname,
+                    distractionFreeMode: false
+                });
+                gitalk.render('gitalk-container');
+            };
+            (i = document.createElement("link")).rel = "stylesheet",
+            i.href = 'https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css',
+            document.head.appendChild(i);
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+
+
+
+    </body>
+</html>
